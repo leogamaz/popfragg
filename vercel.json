@@ -1,0 +1,19 @@
+{
+  "version": 3,
+  "builds": [
+    {
+      "src": "dist/popfragg/server/server.mjs",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "dist/popfragg/browser/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "dist/popfragg/server/server.mjs"
+    }
+  ]
+}
