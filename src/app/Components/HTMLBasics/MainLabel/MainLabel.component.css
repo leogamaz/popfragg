@@ -1,0 +1,12 @@
+:host {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: var(--details); /* substitua por sua cor ou use `#hex` */
+  border-radius: 0.125rem; /* rounded-sm */
+  width: 65px;
+  text-align: center;
+  font-weight: bold;
+  margin-top: 1rem; /* mt-4 */
+  margin-bottom: 0.75rem; /* mb-3 */
+}

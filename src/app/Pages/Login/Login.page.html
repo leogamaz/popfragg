@@ -1,0 +1,36 @@
+<div class="flex-1 flex flex-col justify-center items-center h-screen">
+  <h1 class="text-3xl font-rajdhani text-details p-4">Pop Fragg!</h1>
+  <form
+    (ngSubmit)="login($event)"
+    class="px-4 flex flex-col items-center space-y-4 form-responsive"
+  >
+    <!-- Campo de Email -->
+    <span id="email" class="w-full">
+      <input
+        basic-input
+        [(ngModel)]="email"
+        placeholder="Email/senha"
+        name="Email"
+      />
+    </span>
+
+    <!-- Campo de Senha -->
+    <span id="senha" class="w-full">
+      <input basic-input [(ngModel)]="senha" placeholder="Senha" name="Senha" />
+    </span>
+
+    <steam-login-button class="w-full h-14"></steam-login-button>
+    <button primary-button id="entrar" class="w-full" type="submit">
+      {{ isLoading ? "CARREGANDO..." : "ENTRAR!" }}
+    </button>
+
+    <div class="subscribe">
+      <p class="text-sm text-center text-white">
+        Não tem uma conta?
+        <a class="text-blue-500 cursor-pointer" [routerLink]="['/register']"
+          >Clica logo aqui!</a
+        >
+      </p>
+    </div>
+  </form>
+</div>

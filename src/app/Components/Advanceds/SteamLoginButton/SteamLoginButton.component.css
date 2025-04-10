@@ -1,0 +1,69 @@
+.steam-login-button {
+  background-color: #212121;
+  color: white;
+  border: 2px solid rgb(66, 204, 254);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.steam-login-button:hover {
+  box-shadow: 0 0 12px rgba(66, 204, 254, 0.6);
+}
+
+.loader {
+  display: block;
+  height: 24px;
+  overflow: visible;
+}
+
+.loader path.fill {
+  fill: #2af2;
+  animation: fill 4s ease-in-out infinite;
+}
+
+.loader .dash path {
+  stroke: #2af;
+  stroke-width: 6px;
+  stroke-linecap: round;
+  animation: dashArray 2s ease-in-out infinite, dashOffset 2s linear infinite;
+}
+
+.loader .dash path.big {
+  stroke-width: 6px;
+  filter: drop-shadow(0 0 2px #2af);
+}
+
+@keyframes dashArray {
+  0% {
+    stroke-dasharray: 0 1 359 0;
+  }
+  50% {
+    stroke-dasharray: 0 359 1 0;
+  }
+  100% {
+    stroke-dasharray: 359 1 0 0;
+  }
+}
+
+@keyframes dashOffset {
+  0% {
+    stroke-dashoffset: -5;
+  }
+  100% {
+    stroke-dashoffset: -365;
+  }
+}
+
+@keyframes fill {
+  30%,
+  55% {
+    fill: #2af0;
+  }
+}
