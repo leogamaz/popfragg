@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BasicInputComponent } from '../../Components/HTMLBasics/BasicInput/BasicInput.component';
-import { PrimaryButtonComponent } from '../../Components/HTMLBasics/PrimaryButton/PrimaryButton.component';
-import { MainLabelComponent } from '../../Components/HTMLBasics/MainLabel/MainLabel.component';
-import { SteamLoginButtonComponent } from '../../Components/Advanceds/SteamLoginButton/SteamLoginButton.component';
+import { BasicInputComponent } from '@Components/HTMLBasics/BasicInput/BasicInput.component';
+import { PrimaryButtonComponent } from '@Components/HTMLBasics/PrimaryButton/PrimaryButton.component';
+import { SteamLoginButtonComponent } from '@Components/Advanceds/SteamLoginButton/SteamLoginButton.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 @Component({
@@ -11,7 +10,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     BasicInputComponent,
     PrimaryButtonComponent,
-    MainLabelComponent,
     SteamLoginButtonComponent,
     FormsModule,
     RouterModule,

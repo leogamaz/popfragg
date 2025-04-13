@@ -35,3 +35,16 @@
 :host:hover {
   color: #111;
 }
+
+/* ✅ Estado desabilitado */
+:host([disabled]) {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed;
+  color: rgb(100, 100, 100);
+  border-color: rgb(100, 100, 100);
+}
+
+:host([disabled])::before {
+  background: rgb(150, 150, 150);
+}

@@ -1,0 +1,183 @@
+<div class="page min-h-screen flex flex-col gap-5 items-center justify-center">
+  <h1 class="text-3xl font-bold text-center text-white">
+    Create your account 💯
+  </h1>
+
+  <!-- Personal infos -->
+  <form
+    [@stepAnimation]="isAnimating() ? 'exit' : 'enter'"
+    (@stepAnimation.done)="onAnimationDone()"
+    class="flex flex-col gap-5 p-6 rounded-md w-full max-w-md"
+  >
+    <ng-container *ngIf="currentStep() == stepsRegister.PERSONAL_INFO">
+      <!-- Primeiro Nome e Sobrenome -->
+      <div class="flex gap-4">
+        <!-- Nome -->
+        <span class="flex flex-col gap-2 w-1/2">
+          <input
+            basic-input
+            [ngModel]="nameControl.value()"
+            (ngModelChange)="nameControl.value.set($event)"
+            (blur)="nameControl.setTouched()"
+            [class.border-red-500]="nameControl.touched() && nameControl.error()"
+            name="name"
+            class="text-black border border-gray-300 rounded px-3 py-2"
+            placeholder="Nome"
+          />
+          <span
+            *ngIf="nameControl.touched() && nameControl.error()"
+            class="text-red-500 text-[0.7rem]"
+          >
+            {{ nameControl.error() }}
+          </span>
+        </span>
+
+        <!-- Sobrenome -->
+        <span class="flex flex-col gap-2 w-1/2">
+          <input
+            basic-input
+            [ngModel]="lastNameControl.value()"
+            (ngModelChange)="lastNameControl.value.set($event)"
+            (blur)="lastNameControl.setTouched()"
+            [class.border-red-500]="lastNameControl.touched() && lastNameControl.error()"
+            name="lastName"
+            class="text-black border border-gray-300 rounded px-3 py-2"
+            placeholder="Sobrenome"
+          />
+          <span
+            *ngIf="lastNameControl.touched() && lastNameControl.error()"
+            class="text-red-500 text-[0.7rem]"
+          >
+            {{ lastNameControl.error() }}
+          </span>
+        </span>
+      </div>
+
+      <!-- Email -->
+      <span class="flex flex-col gap-2">
+        <input
+          basic-input
+          [ngModel]="emailControl.value()"
+          (ngModelChange)="emailControl.value.set($event)"
+          (blur)="emailControl.setTouched()"
+          [class.border-red-500]="emailControl.touched() && emailControl.error()"
+          class="text-black border border-gray-300 rounded px-3 py-2"
+          name="email"
+          type="email"
+          placeholder="Email"
+        />
+        <span
+          *ngIf="emailControl.touched() && emailControl.error()"
+          class="text-red-500 text-[0.7rem]"
+        >
+          {{ emailControl.error() }}
+        </span>
+      </span>
+
+      <!-- Senha -->
+      <span class="flex flex-col gap-2">
+        <input
+          basic-input
+          [ngModel]="passwordControl.value()"
+          (ngModelChange)="passwordControl.value.set($event)"
+          (blur)="passwordControl.setTouched()"
+          [class.border-red-500]="passwordControl.touched() && passwordControl.error()"
+          class="text-black border border-gray-300 rounded px-3 py-2"
+          name="password"
+          type="password"
+          placeholder="Senha"
+        />
+        <span
+          *ngIf="passwordControl.touched() && passwordControl.error()"
+          class="text-red-500 text-[0.7rem]"
+        >
+          {{ passwordControl.error() }}
+        </span>
+      </span>
+
+      <!-- Confirmação de Senha -->
+      <span class="flex flex-col gap-2">
+        <input
+          basic-input
+          [ngModel]="confirmPasswordControl.value()"
+          (ngModelChange)="confirmPasswordControl.value.set($event)"
+          (blur)="confirmPasswordControl.setTouched()"
+          [class.border-red-500]="confirmPasswordControl.touched() && confirmPasswordControl.error()"
+          class="text-black border border-gray-300 rounded px-3 py-2"
+          name="confirmPassword"
+          type="password"
+          placeholder="Confirme sua senha"
+        />
+        <span
+          *ngIf="confirmPasswordControl.touched() && confirmPasswordControl.error()"
+          class="text-red-500 text-[0.7rem]"
+        >
+          {{ confirmPasswordControl.error() }}
+        </span>
+      </span>
+    </ng-container>
+
+    <!-- Game Infos -->
+    <ng-container *ngIf="currentStep() == stepsRegister.GAME_INFO">
+      <span class="flex flex-col gap-2">
+        <input
+          basic-input
+          [ngModel]="nicknameControl.value()"
+          (ngModelChange)="nicknameControl.value.set($event)"
+          (blur)="nicknameControl.setTouched()"
+          [class.border-red-500]="nicknameControl.touched() && nicknameControl.error()"
+          class="text-black border border-gray-300 rounded px-3 py-2"
+          name="nickname"
+          placeholder="Seu Nickname"
+        />
+        <span
+          *ngIf="nicknameControl.touched() && nicknameControl.error()"
+          class="text-red-500 text-[0.7rem]"
+        >
+          {{ nicknameControl.error() }}
+        </span>
+      </span>
+    </ng-container>
+  </form>
+
+  <!-- Stepper -->
+  <span class="flex flex-row gap-5 items-center justify-center">
+    <!-- Previous -->
+    <button
+      *ngIf="currentStep() == stepsRegister.GAME_INFO"
+      primary-button
+      id="previousStep"
+      type="submit"
+      class="btn"
+      (click)="changeStep(stepsRegister.PERSONAL_INFO)"
+    >
+      Voltar
+    </button>
+
+    <!-- Next -->
+    <button
+      [disabled]="!validation.isValid()"
+      *ngIf="currentStep() == stepsRegister.PERSONAL_INFO"
+      primary-button
+      id="nextStep"
+      type="submit"
+      class="btn"
+      (click)="changeStep(stepsRegister.GAME_INFO)"
+    >
+      Próximo
+    </button>
+
+    <!-- Register -->
+    <button
+      [disabled]="!validation.isValid() || !gameValidation.isValid()"
+      *ngIf="currentStep() == stepsRegister.GAME_INFO"
+      primary-button
+      id="register"
+      type="submit"
+      class="btn"
+      (click)="register()"
+    >
+      Cadastrar!
+    </button>
+  </span>
+</div>

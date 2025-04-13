@@ -13,15 +13,31 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"],
+    "baseUrl": "src",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@Assets/*": ["assets/*"],
+      "@Environments/*": ["Environments/*"],
+      "@Shared/*": ["app/Shared/*"],
+      "@Core/*": ["app/Core/*"],
+      "@Features/*": ["app/Features/*"],
+      "@Services/*": ["app/Services/*"],
+      "@Models/*": ["app/Models/*"],
+      "@Pipes/*": ["app/Pipes/*"],
+      "@Directives/*": ["app/Directives/*"],
+      "@Guards/*": ["app/guards/*"],
+      "@Utils/*": ["app/Utils/*"],
+      "@Styles/*": ["Styles/*"],
+      "@Components/*": ["app/Components/*"],
+      "@Pages/*": ["app/Pages/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
