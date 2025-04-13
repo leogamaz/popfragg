@@ -14,7 +14,7 @@ import { AccountValidation } from '@Shared/Validators/AccountValidation';
 import { CreateValidation } from '@Shared/Validators/CreateValidationHelper';
 import { CreateReactiveField } from '@Shared/Validators/CreateReactiveFieldHelper';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { environment } from '@Environments/environment';
+import { environment } from '@environments/environment';
 
 enum StepsRegister {
   PERSONAL_INFO = 'personalInfo',

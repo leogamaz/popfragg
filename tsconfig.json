@@ -24,7 +24,7 @@
     "paths": {
       "@app/*": ["app/*"],
       "@Assets/*": ["assets/*"],
-      "@Environments/*": ["Environments/*"],
+      "@environments/*": ["environments/*"],
       "@Shared/*": ["app/Shared/*"],
       "@Core/*": ["app/Core/*"],
       "@Features/*": ["app/Features/*"],
