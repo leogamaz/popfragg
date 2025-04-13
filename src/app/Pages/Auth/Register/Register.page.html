@@ -180,4 +180,7 @@
       Cadastrar!
     </button>
   </span>
+  <div *ngIf="submitError()" class="text-red-500 text-sm mt-2">
+    {{ submitError() }}
+  </div>
 </div>

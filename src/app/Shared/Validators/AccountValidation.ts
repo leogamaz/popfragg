@@ -1,6 +1,7 @@
 const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{2,}$/;
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&^_-]{8,}$/;
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&^_\-])[A-Za-z\d@$!%*#?&^_\-]{6,}$/;
 const nicknameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ0-9_-]{4,20}$/;
 
 export class AccountValidation {
@@ -23,7 +24,7 @@ export class AccountValidation {
   static validatePassword(password?: string): string | null {
     if (!password) return 'Senha é obrigatória';
     if (!passwordRegex.test(password)) {
-      return 'Senha deve ter ao menos 8 caracteres, uma letra e um número';
+      return 'Precisa ter pelo menos 6 caracteres e conter pelo menos um número, uma letra maiúscula, uma letra minúscula e um caractere especial';
     }
     return null;
   }
