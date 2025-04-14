@@ -123,7 +123,7 @@ export class RegisterPage {
       Nickname: this.nickname(),
     };
 
-    this.http.post(`${environment.apiUrl}/Auth/sign_up`, payload).subscribe({
+    this.http.post(`${environment.apiUrl}Auth/sign_up`, payload).subscribe({
       next: () => {
         this.submitSuccess.set(true);
       },
