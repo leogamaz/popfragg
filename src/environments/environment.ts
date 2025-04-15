@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://api-stg.popfragg.com/', // sua URL local
+  apiUrl: 'http://localhost:5063/', // sua URL local
 };

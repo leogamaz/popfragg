@@ -15,6 +15,7 @@ import { CreateValidation } from '@Shared/Validators/CreateValidationHelper';
 import { CreateReactiveField } from '@Shared/Validators/CreateReactiveFieldHelper';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { environment } from '@environments/environment';
+import { NotificationComponent } from '@app/Components/Advanceds/Notificications/Error/ErrorNotification/notification.component';
 
 enum StepsRegister {
   PERSONAL_INFO = 'personalInfo',
@@ -31,6 +32,7 @@ enum StepsRegister {
     CommonModule,
     FormsModule,
     HttpClientModule,
+    NotificationComponent,
   ],
   animations: [StepAnimation],
   templateUrl: './Register.page.html',
