@@ -4,8 +4,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'button[primary-button]',
   standalone: true,
   imports: [],
-  templateUrl: './PrimaryButton.component.html',
-  styleUrl: './PrimaryButton.component.css',
+  templateUrl: './primaryButton.component.html',
+  styleUrl: './primaryButton.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PrimaryButtonComponent {}

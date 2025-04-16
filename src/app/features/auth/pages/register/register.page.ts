@@ -5,17 +5,17 @@ import {
   signal,
   inject,
 } from '@angular/core';
-import { BasicInputComponent } from '@Components/HTMLBasics/BasicInput/BasicInput.component';
-import { PrimaryButtonComponent } from '@Components/HTMLBasics/PrimaryButton/PrimaryButton.component';
+import { BasicInputComponent } from '@Components/HTMLBasics/basicInput/basicInput.component';
+import { PrimaryButtonComponent } from '@Components/HTMLBasics/primaryButton/primaryButton.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { StepAnimation } from '@Shared/Animations/RegisterAnimations';
-import { AccountValidation } from '@Shared/Validators/AccountValidation';
-import { CreateValidation } from '@Shared/Validators/CreateValidationHelper';
-import { CreateReactiveField } from '@Shared/Validators/CreateReactiveFieldHelper';
+import { StepAnimation } from '@app/shared/animations/registerAnimations';
+import { AccountValidation } from '@Validators/accountValidation';
+import { CreateValidation } from '@Shared/validators/createValidationHelper';
+import { CreateReactiveField } from '@Shared/validators/createReactiveFieldHelper';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { environment } from '@environments/environment';
-import { NotificationComponent } from '@app/Components/Advanceds/Notificications/Error/ErrorNotification/notification.component';
+import { environment } from '@Environments/environment';
+import { NotificationComponent } from '@Components/advanceds/notificications/topSide/notification.component';
 
 enum StepsRegister {
   PERSONAL_INFO = 'personalInfo',
@@ -35,8 +35,8 @@ enum StepsRegister {
     NotificationComponent,
   ],
   animations: [StepAnimation],
-  templateUrl: './Register.page.html',
-  styleUrl: './Register.page.css',
+  templateUrl: './register.page.html',
+  styleUrl: './register.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPage {

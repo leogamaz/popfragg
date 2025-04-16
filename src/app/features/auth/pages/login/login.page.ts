@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BasicInputComponent } from '@Components/HTMLBasics/BasicInput/BasicInput.component';
-import { PrimaryButtonComponent } from '@Components/HTMLBasics/PrimaryButton/PrimaryButton.component';
-import { SteamLoginButtonComponent } from '@Components/Advanceds/SteamLoginButton/SteamLoginButton.component';
+import { BasicInputComponent } from '@Components/HTMLBasics/basicInput/basicInput.component';
+import { PrimaryButtonComponent } from '@Components/HTMLBasics/primaryButton/primaryButton.component';
+import { SteamLoginButtonComponent } from '@Components/advanceds/steamLoginButton/steamLoginButton.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 @Component({
@@ -14,8 +14,8 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     RouterModule,
   ],
-  templateUrl: './Login.page.html',
-  styleUrl: './Login.page.css',
+  templateUrl: './login.page.html',
+  styleUrl: './login.page.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginPage {
