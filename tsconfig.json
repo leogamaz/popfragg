@@ -24,19 +24,13 @@
     "paths": {
       "@app/*": ["src/app/*"],
       "@Assets/*": ["src/assets/*"],
-      "@environments/*": ["src/environments/*"],
-      "@Shared/*": ["src/app/Shared/*"],
-      "@Core/*": ["src/app/Core/*"],
-      "@Features/*": ["src/app/Features/*"],
-      "@Services/*": ["src/app/Services/*"],
-      "@Models/*": ["src/app/Models/*"],
-      "@Pipes/*": ["src/app/Pipes/*"],
-      "@Directives/*": ["src/app/Directives/*"],
-      "@Guards/*": ["src/app/guards/*"],
-      "@Utils/*": ["src/app/Utils/*"],
-      "@Styles/*": ["src/Styles/*"],
-      "@Components/*": ["src/app/Components/*"],
-      "@Pages/*": ["src/app/Pages/*"]
+      "@Environments/*": ["src/environments/*"],
+      "@Shared/*": ["src/app/shared/*"],
+      "@Core/*": ["src/app/core/*"],
+      "@Features/*": ["src/app/features/*"],
+      "@Components/*": ["src/app/shared/components/*"],
+      "@Animations/*": ["src/app/shared/animations/*"],
+      "@Validators/*": ["src/app/shared/validators/*"]
     }
   },
   "angularCompilerOptions": {

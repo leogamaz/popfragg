@@ -4,8 +4,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'input[basic-input]',
   standalone: true,
   imports: [],
-  templateUrl: './BasicInput.component.html',
-  styleUrl: './BasicInput.component.css',
+  templateUrl: './basicInput.component.html',
+  styleUrl: './basicInput.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BasicInputComponent {}

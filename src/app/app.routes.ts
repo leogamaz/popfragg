@@ -4,11 +4,13 @@ export const routes: Routes = [
   {
     path: 'login',
     loadComponent: () =>
-      import('./Pages/Auth/Login/Login.page').then((m) => m.LoginPage),
+      import('@Features/auth/pages/login/login.page').then((m) => m.LoginPage),
   },
   {
     path: 'register',
     loadComponent: () =>
-      import('./Pages/Auth/Register/Register.page').then((m) => m.RegisterPage),
+      import('@Features/auth/pages/register/register.page').then(
+        (m) => m.RegisterPage
+      ),
   },
 ];
