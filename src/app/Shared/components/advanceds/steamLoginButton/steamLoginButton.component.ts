@@ -4,8 +4,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'steam-login-button',
   standalone: true,
   imports: [],
-  templateUrl: './SteamLoginButton.component.html',
-  styleUrl: './SteamLoginButton.component.css',
+  templateUrl: './steamLoginButton.component.html',
+  styleUrl: './steamLoginButton.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SteamLoginButtonComponent {}

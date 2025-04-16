@@ -4,8 +4,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'label[main-label]',
   standalone: true,
   imports: [],
-  templateUrl: './MainLabel.component.html',
-  styleUrl: './MainLabel.component.css',
+  templateUrl: './mainLabel.component.html',
+  styleUrl: './mainLabel.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLabelComponent {}
