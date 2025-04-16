@@ -29,7 +29,7 @@
       "@Core/*": ["src/app/core/*"],
       "@Features/*": ["src/app/features/*"],
       "@Components/*": ["src/app/shared/components/*"],
-      "@Animations/*": ["src/app/shared/animations_temp/*"],
+      "@Animations/*": ["src/app/shared/animations/*"],
       "@Validators/*": ["src/app/shared/validators/*"]
     }
   },
