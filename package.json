@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:popfragg": "node dist/popfragg/server/server.mjs"
+    "serve:ssr:popfragg": "node dist/popfragg/server/server.mjs",
+    "vercel-build": "ng build --configuration=$ANGULAR_ENV"
   },
   "private": true,
   "dependencies": {
