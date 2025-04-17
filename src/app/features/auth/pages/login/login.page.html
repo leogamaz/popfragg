@@ -8,7 +8,8 @@
     <span id="email" class="w-full">
       <input
         basic-input
-        [(ngModel)]="email"
+        [ngModel]="email()"
+        (ngModelChange)="email.set($event)"
         placeholder="Email/senha"
         name="Email"
       />
@@ -16,12 +17,20 @@
 
     <!-- Campo de Senha -->
     <span id="senha" class="w-full">
-      <input basic-input [(ngModel)]="senha" placeholder="Senha" name="Senha" />
+      <input
+        basic-input
+        [ngModel]="password()"
+        (ngModelChange)="password.set($event)"
+        placeholder="Senha"
+        type="password"
+        name="Senha"
+      />
     </span>
 
     <steam-login-button class="w-full h-14"></steam-login-button>
+    <loading *ngIf="isSubmitting()"></loading>
     <button primary-button id="entrar" class="w-full" type="submit">
-      {{ isLoading ? "CARREGANDO..." : "ENTRAR!" }}
+      {{ isSubmitting() ? "CARREGANDO..." : "ENTRAR!" }}
     </button>
 
     <div class="subscribe">

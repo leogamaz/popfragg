@@ -3,19 +3,21 @@ import {
   Component,
   computed,
   signal,
-  inject,
 } from '@angular/core';
 import { BasicInputComponent } from '@Components/HTMLBasics/basicInput/basicInput.component';
 import { PrimaryButtonComponent } from '@Components/HTMLBasics/primaryButton/primaryButton.component';
-import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { StepAnimation } from '@app/shared/animations/registerAnimations';
 import { AccountValidation } from '@Validators/accountValidation';
 import { CreateValidation } from '@Shared/validators/createValidationHelper';
 import { CreateReactiveField } from '@Shared/validators/createReactiveFieldHelper';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { environment } from '@Environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 import { NotificationComponent } from '@Components/advanceds/notificications/topSide/notification.component';
+import { AuthService } from '../../services/auth.service';
+import { SignUpRequest } from '../../models/requests/signUpRequest';
+import { Router } from '@angular/router';
+import { LoadingComponent } from '@app/shared/components/advanceds/Loading/loading/loading.component';
 
 enum StepsRegister {
   PERSONAL_INFO = 'personalInfo',
@@ -28,11 +30,11 @@ enum StepsRegister {
   imports: [
     BasicInputComponent,
     PrimaryButtonComponent,
-    ReactiveFormsModule,
     CommonModule,
     FormsModule,
     HttpClientModule,
     NotificationComponent,
+    LoadingComponent,
   ],
   animations: [StepAnimation],
   templateUrl: './register.page.html',
@@ -40,7 +42,6 @@ enum StepsRegister {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPage {
-  private http = inject(HttpClient);
   //Signals de controle de estado
   isSubmitting = signal(false);
   submitError = signal<string | null>(null);
@@ -108,32 +109,38 @@ export class RegisterPage {
     }
   );
 
-  constructor() {}
+  canSubmit = computed(
+    () => this.validation.isValid() && this.gameValidation.isValid()
+  );
+  constructor(private authService: AuthService, private router: Router) {}
 
-  register() {
-    if (!this.validation.isValid() || !this.gameValidation.isValid()) return;
+  async register() {
+    if (!this.canSubmit()) return;
 
     this.isSubmitting.set(true);
     this.submitError.set(null);
 
-    const payload = {
-      Email: this.email(),
-      GivenName: this.name(),
-      FamilyName: this.lastName(),
-      Password: this.password(),
-      ConfirmPassword: this.confirmPassword(),
-      Nickname: this.nickname(),
+    const payload: SignUpRequest = {
+      email: this.email(),
+      password: this.password(),
+      confirmPassword: this.confirmPassword(),
+      nickname: this.nickname(),
+      givenName: this.name(),
+      familyName: this.lastName(),
     };
 
-    this.http.post(`${environment.apiUrl}Auth/sign_up`, payload).subscribe({
-      next: () => {
-        this.submitSuccess.set(true);
+    this.authService.signUp(payload).subscribe({
+      next: (response) => {
+        setTimeout(() => {
+          this.isSubmitting.set(false);
+          this.router.navigate(['/login']);
+        }, 1300);
       },
-      error: (err) => {
-        this.submitError.set(err?.error?.message ?? 'Erro ao registrar.');
-      },
-      complete: () => {
-        this.isSubmitting.set(false);
+      error: (error) => {
+        setTimeout(() => {
+          this.isSubmitting.set(false);
+          this.submitError.set(error?.error?.message ?? 'Erro ao registrar.');
+        }, 1300);
       },
     });
   }
