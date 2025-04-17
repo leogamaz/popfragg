@@ -1,7 +1,7 @@
 .steam-login-button {
   background-color: #212121;
   color: white;
-  border: 2px solid rgb(66, 204, 254);
+  border: 2px solid var(--color-accent);
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -14,7 +14,7 @@
 }
 
 .steam-login-button:hover {
-  box-shadow: 0 0 12px rgba(66, 204, 254, 0.6);
+  box-shadow: 0 0 12px var(--color-accent);
 }
 
 .loader {
@@ -29,7 +29,7 @@
 }
 
 .loader .dash path {
-  stroke: #2af;
+  stroke: var(--color-accent);
   stroke-width: 6px;
   stroke-linecap: round;
   animation: dashArray 2s ease-in-out infinite, dashOffset 2s linear infinite;

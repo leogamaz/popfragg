@@ -13,4 +13,9 @@ export const routes: Routes = [
         (m) => m.RegisterPage
       ),
   },
+  {
+    path: 'home',
+    loadComponent: () =>
+      import('../app/app.component').then((m) => m.AppComponent),
+  },
 ];
