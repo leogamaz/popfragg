@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'api-stg.popfragg.com',
+  apiUrl: 'https://api-stg.popfragg.com',
 };
