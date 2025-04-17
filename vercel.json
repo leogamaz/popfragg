@@ -1,5 +1,5 @@
 {
   "buildCommand": "npm run vercel-build",
-  "outputDirectory": "dist/popfragg",
+  "outputDirectory": "dist/popfragg/browser",
   "framework": "angular"
 }
