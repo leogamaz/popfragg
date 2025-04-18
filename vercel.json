@@ -1,5 +1,17 @@
 {
+  "version": 2,
+  "public": true,
   "buildCommand": "npm run vercel-build",
-  "outputDirectory": "dist/popfragg/browser",
-  "framework": "angular"
+  "name": "popfragg",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api"
+    }
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "dist/popfragg/**"
+    }
+  }
 }

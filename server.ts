@@ -20,9 +20,12 @@ export function app(): express.Express {
   // Example Express Rest API endpoints
   // server.get('/api/**', (req, res) => { });
   // Serve static files from /browser
-  server.get('*.*', express.static(browserDistFolder, {
-    maxAge: '1y'
-  }));
+  server.get(
+    '*.*',
+    express.static(browserDistFolder, {
+      maxAge: '1y',
+    })
+  );
 
   // All regular routes use the Angular engine
   server.get('*', (req, res, next) => {
@@ -43,14 +46,16 @@ export function app(): express.Express {
   return server;
 }
 
-function run(): void {
-  const port = process.env['PORT'] || 4000;
+export const server = app();
 
-  // Start up the Node server
-  const server = app();
-  server.listen(port, () => {
-    console.log(`Node Express server listening on http://localhost:${port}`);
-  });
-}
+// function run(): void {
+//   const port = process.env['PORT'] || 4000;
 
-run();
+//   // Start up the Node server
+//   const server = app();
+//   server.listen(port, () => {
+//     console.log(`Node Express server listening on http://localhost:${port}`);
+//   });
+// }
+
+// run();

@@ -7,7 +7,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   border-radius: 50px;
   background: -webkit-linear-gradient(to right, #f45c43, #eb3349);
   background: linear-gradient(to right, #f45c43, #eb3349);
