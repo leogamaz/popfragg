@@ -62,7 +62,7 @@ export class LoginPage {
         setTimeout(() => {
           this.isSubmitting.set(false);
           this.submitSuccess.set(true);
-          this.router.navigate(['/home']);
+          this.router.navigate(['']);
         }, 1300);
       },
       error: (error) => {
