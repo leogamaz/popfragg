@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:popfragg": "node dist/popfragg/server/server.mjs",
-    "vercel-build": "ng build --configuration=$ANGULAR_ENV"
+    "vercel-build": "ng build --configuration=staging && ng run popfragg:server",
+    "build:ssr": "ng build && ng run popfragg:server"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,8 @@
     "express": "^4.18.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "vercel": "^41.6.1",
+    "vercel-node-server": "^2.2.1",
     "zod": "^3.24.2",
     "zone.js": "~0.14.3"
   },
