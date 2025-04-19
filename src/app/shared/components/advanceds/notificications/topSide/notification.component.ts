@@ -1,34 +1,21 @@
-// notification.component.ts
-import { Component, Input, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { NotificationService } from '@app/core/services/notification.service';
+import { Notification } from '@app/core/models/notification.model';
+import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
+import { fadeInAnimation } from '@app/shared/animations/fadeInAnimation';
 
 @Component({
-  selector: 'notification',
+  selector: 'notification-top-side',
   standalone: true,
-  imports: [CommonModule],
+  imports: [NgFor, CommonModule],
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.css'],
+  animations: [fadeInAnimation], // se quiser animações
 })
-export class NotificationComponent implements OnInit, OnDestroy {
-  @Input() message?: string = '';
-  @Input() type: 'error' | 'success' | 'info' | 'warning' = 'info';
-  @Input() duration: number = 5000; // ms
+export class NotificationTopSideComponent {
+  notifications = this.notificationService.notifications;
 
-  visible = true;
-  private timer: any;
-
-  ngOnInit(): void {
-    this.timer = setTimeout(() => {
-      this.visible = false;
-    }, this.duration);
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.timer);
-  }
-
-  close(): void {
-    this.visible = false;
-    clearTimeout(this.timer);
-  }
+  constructor(private notificationService: NotificationService) {}
 }

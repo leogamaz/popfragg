@@ -13,11 +13,12 @@ import { AccountValidation } from '@Validators/accountValidation';
 import { CreateValidation } from '@Shared/validators/createValidationHelper';
 import { CreateReactiveField } from '@Shared/validators/createReactiveFieldHelper';
 import { HttpClientModule } from '@angular/common/http';
-import { NotificationComponent } from '@Components/advanceds/notificications/topSide/notification.component';
+import { NotificationTopSideComponent } from '@app/shared/components/advanceds/notificications/topSide/notification.component';
 import { AuthService } from '../../services/auth.service';
 import { SignUpRequest } from '../../models/requests/signUpRequest';
 import { Router } from '@angular/router';
 import { LoadingComponent } from '@app/shared/components/advanceds/Loading/loading/loading.component';
+import { NotificationService } from '@app/core/services/notification.service';
 
 enum StepsRegister {
   PERSONAL_INFO = 'personalInfo',
@@ -33,7 +34,7 @@ enum StepsRegister {
     CommonModule,
     FormsModule,
     HttpClientModule,
-    NotificationComponent,
+    NotificationTopSideComponent,
     LoadingComponent,
   ],
   animations: [StepAnimation],
@@ -112,7 +113,11 @@ export class RegisterPage {
   canSubmit = computed(
     () => this.validation.isValid() && this.gameValidation.isValid()
   );
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notification: NotificationService
+  ) {}
 
   async register() {
     if (!this.canSubmit()) return;
@@ -139,7 +144,7 @@ export class RegisterPage {
       error: (error) => {
         setTimeout(() => {
           this.isSubmitting.set(false);
-          this.submitError.set(error?.error?.message ?? 'Erro ao registrar.');
+          this.notification.error(error.error?.message ?? 'Erro ao registrar.');
         }, 1300);
       },
     });

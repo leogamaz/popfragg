@@ -183,10 +183,5 @@
       Cadastrar!
     </button>
   </span>
-  <notification
-    type="error"
-    *ngIf="submitError()"
-    [message]="submitError()?.toString()"
-    class="fixed top-5 left-1/2 -translate-x-1/2 z-[9999] px-4 py-2"
-  ></notification>
+  <notification-top-side></notification-top-side>
 </div>
