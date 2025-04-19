@@ -17,6 +17,8 @@ import {
   signInSchema,
 } from '../../models/requests/signInRequest';
 import { LoadingComponent } from '@app/shared/components/advanceds/Loading/loading/loading.component';
+import { NotificationTopSideComponent } from '@app/shared/components/advanceds/notificications/topSide/notification.component';
+import { NotificationService } from '@app/core/services/notification.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -28,6 +30,7 @@ import { LoadingComponent } from '@app/shared/components/advanceds/Loading/loadi
     FormsModule,
     RouterModule,
     CommonModule,
+    NotificationTopSideComponent,
   ],
   templateUrl: './login.page.html',
   styleUrl: './login.page.css',
@@ -48,7 +51,11 @@ export class LoginPage {
     })
   );
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private notification: NotificationService
+  ) {}
 
   async ngOnInit() {}
 
@@ -68,9 +75,7 @@ export class LoginPage {
       error: (error) => {
         setTimeout(() => {
           this.isSubmitting.set(false);
-          this.submitError.set(
-            'Erro ao fazer login. Verifique suas credenciais.'
-          );
+          this.notification.error('Login Inválido');
         }, 1300);
       },
     });

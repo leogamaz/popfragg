@@ -28,9 +28,17 @@
     </span>
 
     <steam-login-button class="w-full h-14"></steam-login-button>
+
     <loading *ngIf="isSubmitting()"></loading>
-    <button primary-button id="entrar" class="w-full" type="submit">
-      {{ isSubmitting() ? "CARREGANDO..." : "ENTRAR!" }}
+
+    <button
+      primary-button
+      id="entrar"
+      class="w-full"
+      type="submit"
+      [disabled]="isSubmitting() || !email() || !password()"
+    >
+      {{ isSubmitting() ? "Carregando..." : "ENTRAR!" }}
     </button>
 
     <div class="subscribe">
@@ -43,3 +51,4 @@
     </div>
   </form>
 </div>
+<notification-top-side></notification-top-side>
