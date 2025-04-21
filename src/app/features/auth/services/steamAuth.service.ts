@@ -29,7 +29,7 @@ export class SteamAuthService {
       `width=${width},height=${height},left=${left},top=${top}`
     );
     window.addEventListener('message', (event) => {
-      if (event.origin !== 'http://localhost:5063') return;
+      if (event.origin !== this.apiUrl) return;
       const steamId = event.data?.steamId;
     });
   }
