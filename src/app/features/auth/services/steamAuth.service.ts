@@ -18,8 +18,8 @@ export class SteamAuthService {
     const params = new URLSearchParams({
       'openid.ns': 'http://specs.openid.net/auth/2.0',
       'openid.mode': 'checkid_setup',
-      'openid.return_to': 'http://localhost:5063/Auth/sign_in_steam',
-      'openid.realm': 'http://localhost:5063',
+      'openid.return_to': this.apiUrl + '/Auth/sign_in_steam',
+      'openid.realm': this.apiUrl,
       'openid.identity': 'http://specs.openid.net/auth/2.0/identifier_select',
       'openid.claimed_id': 'http://specs.openid.net/auth/2.0/identifier_select',
     });
