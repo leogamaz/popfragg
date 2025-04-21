@@ -54,7 +54,7 @@
 
 @keyframes dashOffset {
   0% {
-    stroke-dashoffset: -5;
+    stroke-dashoffset: -365;
   }
   100% {
     stroke-dashoffset: -365;

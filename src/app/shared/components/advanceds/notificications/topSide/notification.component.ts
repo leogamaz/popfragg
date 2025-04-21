@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { NotificationService } from '@app/core/services/notification.service';
-import { Notification } from '@app/core/models/notification.model';
+import { Notification } from '@app/shared/models/notification.model';
+
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { fadeInAnimation } from '@app/shared/animations/fadeInAnimation';
