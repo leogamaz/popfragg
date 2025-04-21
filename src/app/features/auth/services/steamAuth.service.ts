@@ -7,6 +7,7 @@ import { environment } from '@Environments/environment';
 })
 export class SteamAuthService {
   private readonly apiUrl = environment.apiUrl;
+  private readonly frontEndOrigin = environment.frontendOrigin;
   constructor(private http: HttpClient) {}
 
   steamAuthentication() {
@@ -29,7 +30,7 @@ export class SteamAuthService {
       `width=${width},height=${height},left=${left},top=${top}`
     );
     window.addEventListener('message', (event) => {
-      if (event.origin !== this.apiUrl) return;
+      if (event.origin !== this.frontEndOrigin) return;
       const steamId = event.data?.steamId;
     });
   }
