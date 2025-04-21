@@ -29,11 +29,5 @@ export class SteamAuthService {
       '_blank',
       `width=${width},height=${height},left=${left},top=${top}`
     );
-    window.addEventListener('message', (event) => {
-      console.log(event.origin);
-      console.log(this.frontEndOrigin);
-      if (event.origin !== this.apiUrl) return;
-      const steamId = event.data?.steamId;
-    });
   }
 }

@@ -90,10 +90,12 @@ export class LoginPage {
     this.steamAuthService.steamAuthentication();
     window.addEventListener('message', (event) => {
       if (event.origin !== environment.apiUrl) return;
-      const steamId = event.data?.steamId;
-      if (steamId) {
+      const { steamId, newUser } = event.data;
+      if (newUser) {
         this.router.navigate(['/register']);
+        return;
       }
+      this.router.navigate(['/']);
     });
   }
 }
