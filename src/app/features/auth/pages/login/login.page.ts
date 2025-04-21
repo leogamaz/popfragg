@@ -19,6 +19,8 @@ import {
 import { LoadingComponent } from '@app/shared/components/advanceds/Loading/loading/loading.component';
 import { NotificationTopSideComponent } from '@app/shared/components/advanceds/notificications/topSide/notification.component';
 import { NotificationService } from '@app/core/services/notification.service';
+import { SteamAuthService } from '../../services/steamAuth.service';
+import { environment } from '@Environments/environment';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -54,7 +56,8 @@ export class LoginPage {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private notification: NotificationService
+    private notification: NotificationService,
+    private steamAuthService: SteamAuthService
   ) {}
 
   async ngOnInit() {}
@@ -78,6 +81,17 @@ export class LoginPage {
           this.notification.error('Login Inválido');
         }, 1300);
       },
+    });
+  }
+
+  signInWithSteam() {
+    this.steamAuthService.steamAuthentication();
+    window.addEventListener('message', (event) => {
+      if (event.origin !== environment.apiUrl) return;
+      const steamId = event.data?.steamId;
+      if (steamId) {
+        this.router.navigate(['/register']);
+      }
     });
   }
 }
