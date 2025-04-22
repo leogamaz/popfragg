@@ -1,5 +1,5 @@
 <div class="flex-1 flex flex-col justify-center items-center h-screen">
-  <h1 class="text-3xl font-rajdhani text-details p-4">Pop Fragg!</h1>
+  <h1 class="text-3xl font-rajdhani text-text p-4">Pop Fragg!</h1>
   <form
     (ngSubmit)="login($event)"
     class="px-4 flex flex-col items-center space-y-4 form-responsive"
@@ -31,7 +31,6 @@
       (click)="signInWithSteam()"
       class="w-full h-14"
     ></steam-login-button>
-
 
     <loading *ngIf="isSubmitting()"></loading>
 

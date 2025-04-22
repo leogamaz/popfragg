@@ -9,12 +9,12 @@
 .loader::before {
   content: "";
   position: absolute;
-  background-color: var(--color-accent);
+  background-color: var(--color-neon);
   width: 0%;
   height: 100%;
   border-radius: 2px;
   animation: load 3.5s ease-in-out infinite;
-  box-shadow: var(--color-accent) 0px 2px 25px 0px;
+  box-shadow: var(--color-neon) 0px 2px 25px 0px;
 }
 
 .container {

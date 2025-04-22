@@ -14,8 +14,10 @@ export const routes: Routes = [
       ),
   },
   {
-    path: '',
+    path: 'profile',
     loadComponent: () =>
-      import('../app/app.component').then((m) => m.AppComponent),
+      import('../app/features/profile/pages/profile/profile.page').then(
+        (m) => m.ProfilePage
+      ),
   },
 ];

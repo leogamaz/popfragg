@@ -16,14 +16,14 @@
 
 :host:focus {
   background-color: #1e1e1e;
-  border-color: var(--color-accent);
-  box-shadow: 0 0 10px var(--color-accent), 2px 2px 6px #000;
-  color: var(--color-accent);
+  border-color: var(--color-neon);
+  box-shadow: 0 0 10px var(--color-neon), 2px 2px 6px #000;
+  color: var(--color-neon);
 }
 
 :host:hover:not(:focus) {
-  border-color: #76abae;
-  color: #76abae;
-  box-shadow: 0 0 6px #76abae, 2px 2px 5px #000;
+  border-color: var(--color-sub-neon);
+  color: var(--color-sub-neon);
+  box-shadow: 0 0 6px var(--color-sub-neon), 2px 2px 5px #000;
   transition: all 0.2s ease-in-out;
 }

@@ -4,10 +4,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#222831",
-        secondary: "#31363F",
-        accent: "#76ABAE",
-        details: "#EEEEEE",
+        primary: "var(--color-primary)",
+        secondary: "var(--color-secondary)",
+        accent: "var(--color-accent)",
+        text: "var(--color-text)",
+        bgMain: "var(--color-main-bg)",
+        borderLines: "var(--color-border-lines)",
+        colorNeon: "var(--color-neon)",
+        colorNeonShadow: "var(--color-neon-shadow)",
+        colorSubNeon: "var(--color-sub-neon)",
       },
       fontFamily: {
         rajdhani: ["Goldman", "sans-serif"],
