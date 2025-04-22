@@ -5,15 +5,22 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #222831;
-  --color-secondary: #31363f;
+  --color-primary: #141417;
+  --color-secondary: rgba(61, 55, 55, 0.678);
   --color-accent: rgb(0, 255, 255);
-  --color-details: #eeeeee;
-  --color-main-bg: #1f252d;
+  --color-text: #eeeeee;
+  --color-main-bg: #141417;
+  --color-border-lines: #303030;
+  --color-neon: #00ffff;
+  --color-neon-shadow: #00ff;
+  --color-sub-neon: #76abae;
 }
 
 body {
   background-color: var(--color-main-bg);
+}
+p {
+  color: var(--color-text);
 }
 
 .form-responsive {
