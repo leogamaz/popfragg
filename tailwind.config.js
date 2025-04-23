@@ -6,6 +6,7 @@ module.exports = {
       colors: {
         primary: "var(--color-primary)",
         secondary: "var(--color-secondary)",
+        tertiary: "var(--color-tertiary)",
         accent: "var(--color-accent)",
         text: "var(--color-text)",
         bgMain: "var(--color-main-bg)",

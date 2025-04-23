@@ -7,6 +7,7 @@
 :root {
   --color-primary: #141417;
   --color-secondary: #8585851b;
+  --color-tertiary: #35353d36;
   --color-accent: rgb(0, 255, 255);
   --color-text: #eeeeee;
   --color-main-bg: #141417;
@@ -18,8 +19,6 @@
 
 body {
   background-color: var(--color-main-bg);
-}
-p {
   color: var(--color-text);
 }
 

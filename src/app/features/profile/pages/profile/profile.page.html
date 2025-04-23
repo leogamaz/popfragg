@@ -1,7 +1,33 @@
 <app-header></app-header>
-<aside
-  class="fixed top-16 left-0 w-48 h-[calc(100vh-4rem)] bg-primary border-r border-borderLines z-[9998]"
-></aside>
+<sidebar></sidebar>
 <main class="ml-48 mt-16 p-4">
-  <!-- aqui vem o conteúdo da página -->
+  <section class="p-8">
+    <div class="bg-slate-900">
+      <div id="header-profile" class="p-8 flex flex-row justify-between">
+        <div id="tags">
+          <p>Killer</p>
+        </div>
+        <div id="social-medias">
+          <p>Facebook</p>
+        </div>
+      </div>
+      <div
+        id="profile"
+        class="h-72 flex flex-col justify-center items-center w-full gap-1"
+      >
+        <icon name="unknown-user-profile" [classList]="'w-28 h-28 mr-2'"></icon>
+        <p id="status" class="text-[10px]">Online</p>
+        <p id="nickname">SkillBoot</p>
+      </div>
+      <nav id="profile-nav-bar" class="pl-4 pb-2">
+        <ul class="flex flex-row gap-8 text-[10px]">
+          <li>Overview</li>
+          <li>Friends</li>
+          <li>Calendar</li>
+          <li>Inventory</li>
+          <li>Achievements</li>
+        </ul>
+      </nav>
+    </div>
+  </section>
 </main>
