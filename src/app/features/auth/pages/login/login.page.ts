@@ -74,7 +74,7 @@ export class LoginPage {
         setTimeout(() => {
           this.isSubmitting.set(false);
           this.submitSuccess.set(true);
-          this.router.navigate(['']);
+          this.router.navigate(['/profile']);
         }, 1300);
       },
       error: (error) => {
@@ -92,7 +92,7 @@ export class LoginPage {
       if (event.origin !== environment.apiUrl) return;
       const { steamId, newUser } = event.data;
       if (newUser) {
-        this.router.navigate(['/register']);
+        this.router.navigate(['/profile']);
         return;
       }
       this.router.navigate(['/']);
