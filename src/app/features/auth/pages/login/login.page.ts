@@ -74,7 +74,7 @@ export class LoginPage {
         setTimeout(() => {
           this.isSubmitting.set(false);
           this.submitSuccess.set(true);
-          this.router.navigate(['']);
+          this.router.navigate(['/profile']);
         }, 1300);
       },
       error: (error) => {
