@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { IconComponent } from '@app/shared/components/icon/IconComponent/IconComponent.component';
-import { HeaderComponent } from '@app/shared/layout/pages/header/header.component';
+import { HeaderComponent } from '@app/shared/layout/components/header/header.component';
+
 @Component({
   selector: 'app-profile',
   standalone: true,

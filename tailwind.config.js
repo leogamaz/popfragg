@@ -19,5 +19,20 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities({
+        ".hover-neon": {
+          transition: "all 0.2s ease-in-out",
+          border: "1px solid transparent",
+          "&:hover": {
+            backgroundColor: "#1e1e1e",
+            borderColor: "var(--color-neon)",
+            boxShadow: "0 0 5px var(--color-neon), 1px 1px 3px #000",
+            color: "var(--color-neon)",
+          },
+        },
+      });
+    },
+  ],
 };
