@@ -95,7 +95,7 @@ export class LoginPage {
         this.router.navigate(['/profile']);
         return;
       }
-      this.router.navigate(['/']);
+      this.router.navigate(['/profile']);
     });
   }
 }
