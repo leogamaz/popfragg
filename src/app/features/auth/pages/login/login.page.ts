@@ -92,7 +92,7 @@ export class LoginPage {
       if (event.origin !== environment.apiUrl) return;
       const { steamId, newUser } = event.data;
       if (newUser) {
-        this.router.navigate(['/register']);
+        this.router.navigate(['/profile']);
         return;
       }
       this.router.navigate(['/']);
