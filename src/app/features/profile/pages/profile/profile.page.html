@@ -1,33 +1,44 @@
 <app-header></app-header>
 <sidebar></sidebar>
 <main class="ml-48 mt-16 p-4">
-  <section class="p-8">
-    <div class="bg-slate-900">
-      <div id="header-profile" class="p-8 flex flex-row justify-between">
-        <div id="tags">
-          <p>Killer</p>
+  <section class="p-8 w-full">
+    <div class="bg-tertiary h-[2000px] w-full">
+      <div class="bg-profile w-full">
+        <div
+          id="header-profile"
+          class="p-8 flex flex-row justify-between w-full"
+        >
+          <div id="tags">
+            <p>Killer</p>
+          </div>
+          <div id="social-medias">
+            <p>Facebook</p>
+          </div>
         </div>
-        <div id="social-medias">
-          <p>Facebook</p>
+        <div
+          id="profile"
+          class="h-72 flex flex-col justify-center items-center w-full gap-1"
+        >
+          <icon
+            name="unknown-user-profile"
+            [classList]="'w-28 h-28 mr-2'"
+          ></icon>
+          <p id="status" class="text-[10px]">Online</p>
+          <p id="nickname">SkillBoot</p>
         </div>
+        <nav id="profile-nav-bar" class="pl-12 pb-2 mb-4">
+          <ul class="flex flex-row gap-8 text-[10px]">
+            <li>Overview</li>
+            <li>Friends</li>
+            <li>Calendar</li>
+            <li>Inventory</li>
+            <li>Achievements</li>
+          </ul>
+        </nav>
       </div>
-      <div
-        id="profile"
-        class="h-72 flex flex-col justify-center items-center w-full gap-1"
-      >
-        <icon name="unknown-user-profile" [classList]="'w-28 h-28 mr-2'"></icon>
-        <p id="status" class="text-[10px]">Online</p>
-        <p id="nickname">SkillBoot</p>
+      <div class="p-8 w-[calc(100%-80px)] h-96 bg-secondary mx-auto rounded-lg">
+        <p>teste</p>
       </div>
-      <nav id="profile-nav-bar" class="pl-4 pb-2">
-        <ul class="flex flex-row gap-8 text-[10px]">
-          <li>Overview</li>
-          <li>Friends</li>
-          <li>Calendar</li>
-          <li>Inventory</li>
-          <li>Achievements</li>
-        </ul>
-      </nav>
     </div>
   </section>
 </main>
