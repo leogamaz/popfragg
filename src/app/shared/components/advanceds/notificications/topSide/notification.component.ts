@@ -5,7 +5,7 @@ import { Notification } from '@app/shared/models/notification.model';
 
 import { trigger, transition, style, animate } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { fadeInAnimation } from '@app/shared/animations/fadeInAnimation';
+import { fadeInAnimation } from '@app/shared/animations/fade-in.animation';
 
 @Component({
   selector: 'notification-top-side',
