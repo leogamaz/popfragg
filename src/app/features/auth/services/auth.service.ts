@@ -1,5 +1,5 @@
 import { Injectable, Signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { environment } from '@Environments/environment';
 import { SignUpRequest } from '../models/requests/signUpRequest';
@@ -17,7 +17,7 @@ export class AuthService {
 
   signUp(request: SignUpRequest) {
     return this.http.post<SignUpResponse>(
-      `${this.baseUrl}/Auth/sign_up`,
+      `${this.baseUrl}/api/Auth/sign_up`,
       request,
       {
         withCredentials: true,
@@ -27,11 +27,12 @@ export class AuthService {
 
   signIp(request: SignInRequest) {
     return this.http.post<SignInResponse>(
-      `${this.baseUrl}/Auth/sign_in`,
+      `${this.baseUrl}/api/Auth/sign_in`,
       request,
       {
         withCredentials: true,
       }
     );
   }
+
 }
