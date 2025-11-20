@@ -1,14 +1,12 @@
 <div 
   class="relative flex w-full items-center justify-center" 
   style="height: 80vh;">
-  <div class="inset-0 mt-(--map-margin)">
+  <div class="inset-0 mt-(--map-margin) overflow-hidden rounded-lg">
     <img
-      @fadeIn
-      @key(map())
       [src]="'assets/images/mini-maps/' + map() + '.png'"
-      style="width: 80vh; height: 80vh;"
-      class="object-contain"
+      class="object-contain w-[80vh] h-[80vh] drop-shadow-2xl"
+      [alt]="'Mini Mapa ' + map()"
+      draggable="false"
     />
   </div>
 </div>
-<!-- test -->
