@@ -12,7 +12,6 @@ import { StepAnimation } from '@app/shared/animations/registerAnimations';
 import { AccountValidation } from '@Validators/accountValidation';
 import { CreateValidation } from '@Shared/validators/createValidationHelper';
 import { CreateReactiveField } from '@Shared/validators/createReactiveFieldHelper';
-import { HttpClientModule } from '@angular/common/http';
 import { NotificationTopSideComponent } from '@app/shared/components/advanceds/notificications/topSide/notification.component';
 import { AuthService } from '../../services/auth.service';
 import { SignUpRequest } from '../../models/requests/signUpRequest';
@@ -33,7 +32,6 @@ enum StepsRegister {
     PrimaryButtonComponent,
     CommonModule,
     FormsModule,
-    HttpClientModule,
     NotificationTopSideComponent,
     LoadingComponent,
   ],
