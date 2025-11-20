@@ -21,7 +21,7 @@ import { NotificationTopSideComponent } from '@app/shared/components/advanceds/n
 import { NotificationService } from '@app/core/services/notification.service';
 
 import { SteamAuthService } from '../../services/steamAuth.service';
-import { environment } from '@Environments/environment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -59,10 +59,17 @@ export class LoginPage {
     private authService: AuthService,
     private router: Router,
     private notification: NotificationService,
-    private steamAuthService: SteamAuthService
+    private steamAuthService: SteamAuthService,
+    private route: ActivatedRoute
   ) {}
 
-  async ngOnInit() {}
+  async ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params['loginError'] === 'steam') {
+        this.notification.error('Login com a steam falhou');
+      }
+    });
+  }
 
   async login(event: any) {
     this.submitError.set(null);
@@ -87,15 +94,6 @@ export class LoginPage {
   }
 
   signInWithSteam() {
-    this.steamAuthService.steamAuthentication();
-    window.addEventListener('message', (event) => {
-      if (event.origin !== environment.apiUrl) return;
-      const { steamId, newUser } = event.data;
-      if (newUser) {
-        this.router.navigate(['/profile']);
-        return;
-      }
-      this.router.navigate(['/profile']);
-    });
+    this.steamAuthService.startSteamAuthentication();
   }
 }

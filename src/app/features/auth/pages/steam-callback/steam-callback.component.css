@@ -1,8 +1,10 @@
-
 .loader {
-  display: block;
-  height: 24px;
-  overflow: visible;
+    display: block;
+    height: 24px;
+    overflow: visible;
+    width: 80px;
+    height: 80px;
+    vector-effect: non-scaling-stroke;
 }
 
 .loader path.fill {
@@ -12,14 +14,14 @@
 
 .loader .dash path {
   stroke: var(--color-neon);
-  stroke-width: 6px;
+  stroke-width: 2px;
   stroke-linecap: round;
   animation: dashArray 2s ease-in-out infinite, dashOffset 2s linear infinite;
 }
 
 .loader .dash path.big {
-  stroke-width: 6px;
-  filter: drop-shadow(0 0 2px var(--color-neon-shadow));
+  stroke-width: 2px;
+  filter: drop-shadow(0 0 1px var(--color-neon-shadow));
 }
 
 @keyframes dashArray {

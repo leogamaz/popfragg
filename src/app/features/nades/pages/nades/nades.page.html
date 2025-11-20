@@ -1,0 +1,9 @@
+<br>
+<carousel-maps (selectedMap)="onSelectMap($event)"></carousel-maps>
+<div @fadeIn *ngIf="!selectedMap" class="ribbon-container">
+    <div class="ribbon"><span>CHOOSE</span></div>
+    <div class="ribbon"><span>ONE</span></div>
+    <div class="ribbon"><span>MAP!</span></div>
+</div>
+
+<app-mini-map *ngIf="selectedMap" [map]="selectedMap"></app-mini-map>

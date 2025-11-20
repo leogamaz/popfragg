@@ -1,0 +1,131 @@
+/* ==========================
+   CONTAINER PRINCIPAL
+========================== */
+.container-maps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  max-height: 70vh;                 /* limite da tela */
+  overflow-y: auto;
+  padding: 16px;
+  box-sizing: border-box;
+  justify-content: center;      /* mantém tudo bem distribuído */
+}
+
+
+/* Cards com tamanho fixo aproximado ao que você gostou */
+.container-maps > * {
+  flex: 0 0 130px;              /* largura exata */
+  height: 180px;                /* altura exata */
+}
+
+
+/* ==========================
+   CARD
+========================== */
+.cardMap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid #ffffff20;
+  border-radius: 12px;
+
+  overflow: hidden;
+  background: #161616;
+  transition: all 0.25s ease;
+
+  cursor: pointer;
+}
+
+.cardMap:hover {
+  background-color: #1e1e1e;
+  border-color: var(--color-neon);
+  box-shadow: 
+    0 0 10px var(--color-neon),
+    2px 2px 8px #000;
+  transform: scale(1.02);
+}
+
+
+/* ==========================
+   IMAGEM DE FUNDO
+========================== */
+.map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  filter: blur(2px) brightness(0.7);
+  transform: scale(1.25);
+
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.cardMap:hover .map-image {
+  filter: blur(0) brightness(1);
+  transform: scale(1.15);
+}
+
+
+/* ==========================
+   LOGO CENTRAL
+========================== */
+.logo-map {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 90px;
+  height: 90px;
+
+  z-index: 10;
+  pointer-events: none;
+
+  filter: drop-shadow(0 0 10px #000)
+          drop-shadow(0 4px 16px #000);
+}
+
+/* ==========================
+   FRASE INICIAL NO MEIO DA TELA
+========================== */
+.ribbon-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-left: 40px; /* Ajuste para posicionar */
+    margin-top: 80px;
+}
+.ribbon {
+    background: var(--color-neon);
+    color: white;
+    font-weight: 900;
+    font-size: 32px;
+    padding: 14px 32px;
+    width: fit-content;
+    transform: skewX(-25deg);
+    text-transform: uppercase;
+
+    display: inline-block;
+    transition: all 0.2s ease-in-out;
+}
+
+.ribbon:hover {
+    transform: skewX(-25deg) scale(1.05); /* mantém o skew e aumenta */
+    border: 2px solid var(--color-neon);
+    box-shadow: 0 0 10px var(--color-neon);
+}
+.ribbon span {
+    transform: skewX(25deg);
+    display: inline-block;
+    cursor: default;
+    user-select: none;
+    filter: drop-shadow(0 0 4px #000);
+}
