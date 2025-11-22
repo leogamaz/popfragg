@@ -20,7 +20,7 @@ export interface NadeGroup {
   animations: [MiniMapAnimation],
   host: {
     '[@miniMap]': '',
-    'class': 'block w-full'
+    'class': 'block'
   }
 })
 export class MiniMapComponent {

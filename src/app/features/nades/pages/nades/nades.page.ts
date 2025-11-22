@@ -1,122 +1,75 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CarouselMapsComponent } from '../../components/carousel-maps/carousel-maps.component';
 import { MiniMapComponent } from '@app/shared/components/advanceds/mini-map/mini-map.component';
 import { leftToRightAnimation } from '@app/shared/animations/lef-to-right.animation';
 import { Nade } from '@app/features/nades/models/nade.model';
 import { NadesService } from '../../services/nades.service';
+import { MenuSidebarComponent } from '../../components/menu-sidebar/menu-sidebar.component';
+import { IconComponent } from '@app/shared/components/icon/IconComponent/IconComponent.component';
 
 @Component({
   selector: 'app-nades',
   standalone: true,
-  imports: [CommonModule, CarouselMapsComponent, MiniMapComponent],
+  imports: [CommonModule, CarouselMapsComponent, MiniMapComponent, MenuSidebarComponent, IconComponent],
   templateUrl: './nades.page.html',
   styleUrl: './nades.page.css',
   animations: [leftToRightAnimation]
 })
-export class NadesPage {
+export class NadesPage implements OnInit {
   public selectedMap: string | null = null;
   public mapVisible: boolean = false;
+  public isNavigating: boolean = false;
 
   private ribbonFinished: boolean = false;
   private carouselFinished: boolean = false;
 
   public currentMapNades: Nade[] = [];
+  allNades: Nade[] = [];
+  private pendingMap: string | null = null;
 
-  // Mock Data
-  // private allNades: Nade[] = [
-  //   {
-  //     title: 'Stairs Smoke (Spawn)',
-  //     visibility: 'public',
-  //     accuracyLevel: 'high',
-  //     technique: 'jumpthrow',
-  //     description: 'Essential smoke for A site execution from T Spawn.',
-  //     side: 'T',
-  //     map: 'de_mirage',
-  //     type: 'molotov',
-  //     videoUrl: 'https://www.youtube.com/embed/xyz123',
-  //     tags: ['A Site', 'Execute'],
-  //     images: [],
-  //     rating: 5,
-  //     accesses: [],
-  //     startPosition: { x: 36, y: 75 }, // T Spawn area
-  //     endPosition: { x: 62, y: 44 }   // Stairs
-  //   },
-  //   {
-  //     title: 'Stairs Smoke (Palace)',
-  //     visibility: 'public',
-  //     accuracyLevel: 'medium',
-  //     technique: 'stand',
-  //     description: 'Alternative smoke for Stairs from Palace.',
-  //     side: 'T',
-  //     map: 'de_mirage',
-  //     type: 'flash',
-  //     rating: 3,
-  //     videoUrl: 'https://www.youtube.com/embed/xyz123',
-  //     tags: ['A Site', 'Execute'],
-  //     images: [],
-  //     accesses: [],
-  //     startPosition: { x: 65, y: 80 }, // Palace area
-  //     endPosition: { x: 62, y: 45 }   // Stairs (Same end position)
-  //   },
-  //   {
-  //     title: 'Jungle Smoke',
-  //     visibility: 'public',
-  //     accuracyLevel: 'high',
-  //     technique: 'stand',
-  //     description: 'Blocks vision from Jungle and Connector.',
-  //     side: 'CT',
-  //     map: 'de_mirage',
-  //     type: 'smoke',
-  //     videoUrl: 'https://www.youtube.com/embed/abc456',
-  //     tags: ['Mid', 'A Site'],
-  //     rating: 4,
-  //     images: [],
-  //     accesses: [],
-  //     startPosition: { x: 30, y: 78 }, // T Spawn area
-  //     endPosition: { x: 58, y: 48 }   // Jungle
-  //   },
-  //   {
-  //     title: 'Window Flash',
-  //     visibility: 'public',
-  //     accuracyLevel: 'medium',
-  //     technique: 'runthrow',
-  //     description: 'Blinds sniper in window.',
-  //     side: 'CT',
-  //     map: 'de_mirage',
-  //     type: 'he',
-  //     videoUrl: null,
-  //     tags: ['Mid'],
-  //     rating: 2.5,
-  //     images: [],
-  //     accesses: [],
-  //     startPosition: { x: 45, y: 60 }, // Top Mid
-  //     endPosition: { x: 50, y: 50 }   // Window
-  //   }
-  // ];
-  allNades: Nade[] = []
-
-
-  constructor(private nadesService: NadesService) { }
+  constructor(
+    private nadesService: NadesService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+    // Initialize from snapshot immediately to prevent flash
+    const snapshotMap = this.route.snapshot.paramMap.get('mapName');
+    if (snapshotMap) {
+      this.selectMapFromRoute(snapshotMap);
+    }
+
     this.nadesService.getAllNadesByUser().subscribe((nades) => {
-      this.allNades = nades
+      this.allNades = nades;
+
+      // Update current map nades if we already selected a map
+      if (this.selectedMap) {
+        this.currentMapNades = this.allNades.filter(n => n.map === this.selectedMap);
+      }
+
+      // Subscribe for future changes
+      this.route.paramMap.subscribe(params => {
+        const mapName = params.get('mapName');
+        // Only update if different and not already handled by snapshot
+        if (mapName && mapName !== this.selectedMap) {
+          this.selectMapFromRoute(mapName);
+        } else if (!mapName && this.selectedMap) {
+          this.resetToCarousel();
+        }
+      });
     });
   }
 
   onSelectMap(map: string | null) {
-    console.log('Selected map:', map);
-    this.selectedMap = map;
-
     if (map) {
-      this.mapVisible = false;
-      this.ribbonFinished = false;
-      this.carouselFinished = false;
-      this.currentMapNades = this.allNades.filter(n => n.map === map);
+      // Trigger exit animations
+      this.isNavigating = true;
+      this.pendingMap = map;
     } else {
-      this.mapVisible = false;
-      this.currentMapNades = [];
+      this.router.navigate(['nades']);
     }
   }
 
@@ -129,7 +82,28 @@ export class NadesPage {
 
   onCarouselCollapseDone() {
     this.carouselFinished = true;
-    this.checkAndShowMap();
+    if (this.pendingMap) {
+      this.router.navigate(['nades', this.pendingMap]);
+      this.pendingMap = null;
+    } else {
+      this.checkAndShowMap();
+    }
+  }
+
+  private selectMapFromRoute(map: string) {
+    this.selectedMap = map;
+    this.mapVisible = true;
+    this.ribbonFinished = true;
+    this.carouselFinished = true;
+    this.isNavigating = false;
+    this.currentMapNades = this.allNades.filter(n => n.map === map);
+  }
+
+  private resetToCarousel() {
+    this.selectedMap = null;
+    this.mapVisible = false;
+    this.isNavigating = false;
+    this.currentMapNades = [];
   }
 
   private checkAndShowMap() {

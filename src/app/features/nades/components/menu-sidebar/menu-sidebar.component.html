@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="sidebar m-6 flex flex-col gap-4 p-4 mr-8 bg-bgSecondary border rounded border-borderLines ">
+        <h1 class="text-xl">{{formattedMapName()}}</h1>
+        <p class="text-sm p-2">Find the best {{formattedMapName()}} nades in CS2 — smokes, flashes, and molotovs to <br>
+            dominate Bomb A,Bomb B,and Middle. Learn quick executions, advanced <br>
+            smokes for the window, league, and cave, plus essential utilities for retake <br>
+            and map control. Here you'll find consistent and up-to-date lineups for ranked <br>
+            and tournament play.</p>
+    </div>
+    <div class="sidebar m-6 flex flex-col gap-4 p-4 mr-8 bg-bgSecondary border rounded border-borderLines">
+        <button class="w-full" primary-button>+ Add new Nade!</button>
+        <h2 class="text-xl self-center">Filters:</h2>
+        <!-- Filtro de Granadas -->
+        <div id="nadeFilters" class="flex flex-row gap-[80px] p-2 place-items-center justify-center w-auto">
+            <span class="nade flex flex-col gap-2 justify-center place-items-center cursor-pointer">
+                <icon name="nades/molotov"
+                    class="w-8 h-8 text-red-500 bg-primary rounded-full p-[5px] hover:border-colorNeon hover:border-2 active:border-colorNeon active:border-2">
+                </icon>
+                <p style="align-self: center;">Molotov</p>
+            </span>
+            <span class="nade flex flex-col gap-2 justify-center place-items-center cursor-pointer">
+                <icon name="nades/flash" style="margin-top: 2px !important;"
+                    class="w-8 h-8 text-yellow-400 bg-primary rounded-full p-[5px] hover:border-colorNeon hover:border-2 active:border-colorNeon active:border-2">
+                </icon>
+                <p style="align-self: center;">Flash</p>
+            </span>
+            <span class="nade flex flex-col gap-2 justify-center place-items-center cursor-pointer">
+                <icon name="nades/smoke"
+                    class="w-8 h-8 text-gray-400 bg-primary rounded-full p-[5px] hover:border-colorNeon hover:border-2 active:border-colorNeon active:border-2">
+                </icon>
+                <p style="align-self: center;">Smoke</p>
+            </span>
+            <span class="nade flex flex-col gap-2 justify-center place-items-center cursor-pointer">
+                <icon name="nades/he"
+                    class="w-8 h-8 text-green-500 bg-primary rounded-full p-[5px] hover:border-colorNeon hover:border-2 active:border-colorNeon active:border-2">
+                </icon>
+                <p style="align-self: center;">HE</p>
+            </span>
+        </div>
+        <hr class="border border-borderLines">
+        <!-- Filtros de Time -->
+        <div id="teamFilters" class="flex flex-row gap-[80px] p-2 place-items-center justify-center w-auto">
+            <span class="team flex flex-col gap-2 justify-center place-items-center cursor-pointer">
+                <img src="assets/icons/CS2 Side Logos/T-Logo.png"
+                    class="w-8 h-8 text-red-500 bg-primary rounded-full p-[5px] hover:border-colorNeon hover:border-2 active:border-colorNeon active:border-2">
+                <p style="align-self: center;">Terrorist</p>
+            </span>
+            <span class="team flex flex-col gap-2 justify-center place-items-center cursor-pointer">
+                <img src="assets/icons/CS2 Side Logos/CT-Logo.png"
+                    class="w-8 h-8 text-yellow-400 bg-primary rounded-full p-[5px] hover:border-colorNeon hover:border-2 active:border-colorNeon active:border-2">
+                <p style="align-self: center;">Counter Terrorist</p>
+            </span>
+        </div>
+        <hr class="border border-borderLines">
+
+    </div>
+</div>
