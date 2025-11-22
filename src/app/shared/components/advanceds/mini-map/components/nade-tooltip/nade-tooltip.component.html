@@ -1,0 +1,59 @@
+<div class="absolute z-50 w-[400px] -translate-x-1/2" [style.left.%]="nade().startPosition!.x"
+    [style.top]="tooltipPosition() === 'bottom' ? (nade().startPosition!.y + 2) + '%' : 'auto'"
+    [style.bottom]="tooltipPosition() === 'top' ? (100 - nade().startPosition!.y + 2) + '%' : 'auto'">
+
+    <div [@zoomIn]="{ value: '*', params: { time: '0.3s', startScale: 0.1 } }"
+        class="p-4 rounded-lg shadow-2xl bg-[var(--color-main-bg)] border border-[var(--color-neon)]">
+        <span class="flex items-center justify-between">
+            <span class="flex items-center gap-2">
+                <h4 class="text-[var(--color-neon)] font-bold mb-1">{{ nade().title }}</h4>
+                @if (nade().side === 'T') {
+                <img src="assets/icons/CS2 Side Logos/CT-Logo.png" class="w-5 h-5 -mt-[5px]"
+                    alt="Counter-Terrorist Logo">
+                } @else if (nade().side === 'CT') {
+                <img src="assets/icons/CS2 Side Logos/T-Logo.png" class="w-5 h-5 -mt-[5px]" alt="Terrorist Logo">
+                }
+                @else {
+                <img src="assets/icons/CS2 Side Logos/Both.png" class="w-5 h-5 -mt-[5px]" alt="Both Logo">
+                }
+            </span>
+            <!-- stars of rating nade -->
+            <div class="flex items-center">
+                @for (starIndex of [1, 2, 3, 4, 5]; track starIndex) {
+                <span class="relative inline-block text-[var(--color-neon)]">
+                    <!-- Background star, always visible and dim -->
+                    <span class="opacity-30">⭐</span>
+                    <!-- Foreground star, bright and clipped based on rating -->
+                    @if (nade().rating >= starIndex) {
+                    <span class="absolute top-0 left-0 overflow-hidden opacity-100">⭐</span>
+                    } @else if (nade().rating > starIndex - 1) {
+                    <span class="absolute top-0 left-0 overflow-hidden opacity-100"
+                        [style.width.%]="(nade().rating - (starIndex - 1)) * 100">⭐</span>
+                    }
+                </span>
+                }
+            </div>
+        </span>
+        <span class="flex items-center justify-between">
+            <div class="text-xs text-gray-400 mb-2 uppercase">{{ nade().technique }}</div>
+            <div class="text-xs text-gray-400 mb-2 uppercase">{{ nade().accuracyLevel }}</div>
+        </span>
+
+        @if (nade().videoUrl) {
+        <div class="aspect-video rounded overflow-hidden mb-2 border border-[var(--color-border-lines)]">
+            <iframe width="100%" height="100%" [src]="nade().videoUrl!| safeUrl" frameborder="0"
+                allow="autoplay; encrypted-media" allowfullscreen>
+            </iframe>
+        </div>
+        }
+        <p class="text-xs text-white mb-2 uppercase">Description:</p>
+        <p class="text-xs text-gray-300 bg-[var(--color-border-lines)] p-2 mx-2 rounded w-fit">{{ nade().description }}
+        </p>
+        <p class="text-xs text-white mb-2 uppercase mt-4">Tags:</p>
+        <div class="flex items-center gap-1">
+            @for (tag of nade().tags; track $index) {
+            <p class="text-xs text-gray-300 bg-[var(--color-border-lines)] py-1 px-2 mx-1 rounded w-fit">{{ tag }}</p>
+            }
+        </div>
+    </div>
+</div>

@@ -1,12 +1,45 @@
-<div 
-  class="relative flex w-full items-center justify-center" 
-  style="height: 80vh;">
-  <div class="inset-0 mt-(--map-margin) overflow-hidden rounded-lg">
-    <img
-      [src]="'assets/images/mini-maps/' + map() + '.png'"
-      class="object-contain w-[80vh] h-[80vh] drop-shadow-2xl"
-      [alt]="'Mini Mapa ' + map()"
-      draggable="false"
-    />
+<div class="relative flex w-full items-center justify-center" style="height: 80vh;">
+  <!-- Wrapper for positioning context -->
+  <div class="relative w-[80vh] h-[80vh] mt-(--map-margin)">
+    <!-- Map Image Container (with overflow hidden for rounded corners) -->
+    <div class="absolute inset-0 overflow-hidden rounded-lg">
+      <img [src]="'assets/images/mini-maps/' + map() + '.png'" class="object-contain w-full h-full drop-shadow-2xl"
+        [alt]="'Mini Mapa ' + map()" draggable="false" />
+      <!-- Effect Groups (Landing Positions) -->
+      @for (group of nadeGroups(); track group.position.x + '-' + group.position.y) {
+      <div
+        class="absolute w-6 h-6 -ml-3 -mt-3 cursor-pointer transition-transform hover:scale-125 z-10 flex items-center justify-center rounded-full shadow-lg border border-[var(--color-border-lines)]"
+        [class.scale-125]="selectedGroup() === group" [class.ring-2]="selectedGroup() === group"
+        [style.left.%]="group.position.x" [style.top.%]="group.position.y"
+        [style.background-color]="'var(--color-main-bg)'"
+        [style.border-color]="selectedGroup() === group ? 'var(--color-neon)' : 'var(--color-border-lines)'"
+        (click)="selectGroup(group)">
+        <app-nade-marker [type]="group.type"></app-nade-marker>
+      </div>
+      }
+      <!-- Execution Markers (Start Positions) for Selected Group -->
+      @if (selectedGroup(); as group) {
+      @for (nade of group.nades; track nade.title) {
+      @if (nade.startPosition) {
+      <!-- Line connecting start and end -->
+      <svg class="absolute inset-0 w-full h-full pointer-events-none z-0">
+        <line [attr.x1]="nade.startPosition.x + '%'" [attr.y1]="nade.startPosition.y + '%'"
+          [attr.x2]="group.position.x + '%'" [attr.y2]="group.position.y + '%'" stroke="var(--color-neon)"
+          stroke-width="2" stroke-dasharray="4" class="opacity-50" />
+      </svg>
+      <!-- Start Position Marker -->
+      <div
+        class="absolute w-5 h-5 -ml-2.5 -mt-2.5 bg-[var(--color-neon)] rounded-full border-2 border-white shadow-lg z-20 cursor-pointer hover:scale-125 transition-transform"
+        [style.left.%]="nade.startPosition.x" [style.top.%]="nade.startPosition.y" (mouseenter)="onNadeHover(nade)"
+        (mouseleave)="onNadeHover(null)">
+      </div>
+      }
+      }
+      }
+    </div>
+    <!-- Tooltip (Outside overflow-hidden) -->
+    @if (hoveredNade(); as nade) {
+    <app-nade-tooltip [nade]="nade"></app-nade-tooltip>
+    }
   </div>
 </div>
