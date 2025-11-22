@@ -4,6 +4,9 @@ export interface NadeImageItem {
 }
 
 export interface Nade {
+    id: string;
+    authorId: string;
+    authorName: string;
     title: string;
     visibility: string;
     accuracyLevel: string | null;

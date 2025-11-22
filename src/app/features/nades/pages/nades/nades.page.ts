@@ -4,6 +4,7 @@ import { CarouselMapsComponent } from '../../components/carousel-maps/carousel-m
 import { MiniMapComponent } from '@app/shared/components/advanceds/mini-map/mini-map.component';
 import { leftToRightAnimation } from '@app/shared/animations/lef-to-right.animation';
 import { Nade } from '@app/features/nades/models/nade.model';
+import { NadesService } from '../../services/nades.service';
 
 @Component({
   selector: 'app-nades',
@@ -23,76 +24,86 @@ export class NadesPage {
   public currentMapNades: Nade[] = [];
 
   // Mock Data
-  private allNades: Nade[] = [
-    {
-      title: 'Stairs Smoke (Spawn)',
-      visibility: 'public',
-      accuracyLevel: 'high',
-      technique: 'jumpthrow',
-      description: 'Essential smoke for A site execution from T Spawn.',
-      side: 'T',
-      map: 'de_mirage',
-      type: 'molotov',
-      videoUrl: 'https://www.youtube.com/embed/xyz123',
-      tags: ['A Site', 'Execute'],
-      images: [],
-      rating: 5,
-      accesses: [],
-      startPosition: { x: 36, y: 75 }, // T Spawn area
-      endPosition: { x: 62, y: 44 }   // Stairs
-    },
-    {
-      title: 'Stairs Smoke (Palace)',
-      visibility: 'public',
-      accuracyLevel: 'medium',
-      technique: 'stand',
-      description: 'Alternative smoke for Stairs from Palace.',
-      side: 'T',
-      map: 'de_mirage',
-      type: 'flash',
-      rating: 3,
-      videoUrl: 'https://www.youtube.com/embed/xyz123',
-      tags: ['A Site', 'Execute'],
-      images: [],
-      accesses: [],
-      startPosition: { x: 65, y: 80 }, // Palace area
-      endPosition: { x: 62, y: 45 }   // Stairs (Same end position)
-    },
-    {
-      title: 'Jungle Smoke',
-      visibility: 'public',
-      accuracyLevel: 'high',
-      technique: 'stand',
-      description: 'Blocks vision from Jungle and Connector.',
-      side: 'CT',
-      map: 'de_mirage',
-      type: 'smoke',
-      videoUrl: 'https://www.youtube.com/embed/abc456',
-      tags: ['Mid', 'A Site'],
-      rating: 4,
-      images: [],
-      accesses: [],
-      startPosition: { x: 30, y: 78 }, // T Spawn area
-      endPosition: { x: 58, y: 48 }   // Jungle
-    },
-    {
-      title: 'Window Flash',
-      visibility: 'public',
-      accuracyLevel: 'medium',
-      technique: 'runthrow',
-      description: 'Blinds sniper in window.',
-      side: 'CT',
-      map: 'de_mirage',
-      type: 'he',
-      videoUrl: null,
-      tags: ['Mid'],
-      rating: 2.5,
-      images: [],
-      accesses: [],
-      startPosition: { x: 45, y: 60 }, // Top Mid
-      endPosition: { x: 50, y: 50 }   // Window
-    }
-  ];
+  // private allNades: Nade[] = [
+  //   {
+  //     title: 'Stairs Smoke (Spawn)',
+  //     visibility: 'public',
+  //     accuracyLevel: 'high',
+  //     technique: 'jumpthrow',
+  //     description: 'Essential smoke for A site execution from T Spawn.',
+  //     side: 'T',
+  //     map: 'de_mirage',
+  //     type: 'molotov',
+  //     videoUrl: 'https://www.youtube.com/embed/xyz123',
+  //     tags: ['A Site', 'Execute'],
+  //     images: [],
+  //     rating: 5,
+  //     accesses: [],
+  //     startPosition: { x: 36, y: 75 }, // T Spawn area
+  //     endPosition: { x: 62, y: 44 }   // Stairs
+  //   },
+  //   {
+  //     title: 'Stairs Smoke (Palace)',
+  //     visibility: 'public',
+  //     accuracyLevel: 'medium',
+  //     technique: 'stand',
+  //     description: 'Alternative smoke for Stairs from Palace.',
+  //     side: 'T',
+  //     map: 'de_mirage',
+  //     type: 'flash',
+  //     rating: 3,
+  //     videoUrl: 'https://www.youtube.com/embed/xyz123',
+  //     tags: ['A Site', 'Execute'],
+  //     images: [],
+  //     accesses: [],
+  //     startPosition: { x: 65, y: 80 }, // Palace area
+  //     endPosition: { x: 62, y: 45 }   // Stairs (Same end position)
+  //   },
+  //   {
+  //     title: 'Jungle Smoke',
+  //     visibility: 'public',
+  //     accuracyLevel: 'high',
+  //     technique: 'stand',
+  //     description: 'Blocks vision from Jungle and Connector.',
+  //     side: 'CT',
+  //     map: 'de_mirage',
+  //     type: 'smoke',
+  //     videoUrl: 'https://www.youtube.com/embed/abc456',
+  //     tags: ['Mid', 'A Site'],
+  //     rating: 4,
+  //     images: [],
+  //     accesses: [],
+  //     startPosition: { x: 30, y: 78 }, // T Spawn area
+  //     endPosition: { x: 58, y: 48 }   // Jungle
+  //   },
+  //   {
+  //     title: 'Window Flash',
+  //     visibility: 'public',
+  //     accuracyLevel: 'medium',
+  //     technique: 'runthrow',
+  //     description: 'Blinds sniper in window.',
+  //     side: 'CT',
+  //     map: 'de_mirage',
+  //     type: 'he',
+  //     videoUrl: null,
+  //     tags: ['Mid'],
+  //     rating: 2.5,
+  //     images: [],
+  //     accesses: [],
+  //     startPosition: { x: 45, y: 60 }, // Top Mid
+  //     endPosition: { x: 50, y: 50 }   // Window
+  //   }
+  // ];
+  allNades: Nade[] = []
+
+
+  constructor(private nadesService: NadesService) { }
+
+  ngOnInit(): void {
+    this.nadesService.getAllNadesByUser().subscribe((nades) => {
+      this.allNades = nades
+    });
+  }
 
   onSelectMap(map: string | null) {
     console.log('Selected map:', map);

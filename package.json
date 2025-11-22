@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --ssl",
+    "//start": "set NODE_TLS_REJECT_UNAUTHORIZED=0&& ng serve --ssl",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",

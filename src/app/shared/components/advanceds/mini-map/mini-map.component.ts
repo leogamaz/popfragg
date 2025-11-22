@@ -1,5 +1,5 @@
 import { Component, input, signal, computed } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { NgIf, NgClass } from '@angular/common';
 import { MiniMapAnimation } from '@app/shared/animations/mini-map.animation';
 import { Nade } from '@app/features/nades/models/nade.model';
 import { NadeMarkerComponent } from './components/nade-marker/nade-marker.component';
@@ -16,7 +16,7 @@ export interface NadeGroup {
   standalone: true,
   templateUrl: './mini-map.component.html',
   styleUrl: './mini-map.component.css',
-  imports: [NadeMarkerComponent, NadeTooltipComponent],
+  imports: [NadeMarkerComponent, NadeTooltipComponent, NgClass],
   animations: [MiniMapAnimation],
   host: {
     '[@miniMap]': '',

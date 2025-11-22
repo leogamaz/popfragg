@@ -12,7 +12,8 @@
       @for (group of nadeGroups(); track group.position.x + '-' + group.position.y) {
       @if (!selectedGroup() || selectedGroup() === group) {
       <div
-        class="absolute w-6 h-6 -ml-3 -mt-3 cursor-pointer transition-transform hover:scale-125 z-10 flex items-center justify-center rounded-full shadow-lg border border-[var(--color-border-lines)]"
+        class="absolute cursor-pointer transition-transform hover:scale-125 z-10 flex items-center justify-center rounded-full shadow-lg border border-[var(--color-border-lines)]"
+        [ngClass]="group.types.length > 1 ? 'w-10 h-10 -ml-3 -mt-3' : 'w-8 h-8 -ml-3 -mt-3'"
         [class.scale-125]="selectedGroup() === group" [class.ring-2]="selectedGroup() === group"
         [style.left.%]="group.position.x" [style.top.%]="group.position.y"
         [style.background-color]="'var(--color-main-bg)'"
@@ -31,7 +32,7 @@
         <div
           class="w-8 h-8 flex items-center justify-center rounded hover:bg-[var(--color-border-lines)] cursor-pointer transition-colors"
           (click)="$event.stopPropagation(); selectType(type)" title="{{type}}">
-          <app-nade-marker [types]="[type]"></app-nade-marker>
+          <app-nade-marker [types]="[type]" style="margin: 10px;"></app-nade-marker>
         </div>
         }
       </div>
