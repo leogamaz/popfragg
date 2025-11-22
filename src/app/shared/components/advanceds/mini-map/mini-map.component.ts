@@ -4,11 +4,13 @@ import { MiniMapAnimation } from '@app/shared/animations/mini-map.animation';
 import { Nade } from '@app/features/nades/models/nade.model';
 import { NadeMarkerComponent } from './components/nade-marker/nade-marker.component';
 import { NadeTooltipComponent } from './components/nade-tooltip/nade-tooltip.component';
+
 export interface NadeGroup {
   position: { x: number; y: number };
-  type: string;
+  types: string[];
   nades: Nade[];
 }
+
 @Component({
   selector: 'app-mini-map',
   standalone: true,
@@ -24,40 +26,70 @@ export interface NadeGroup {
 export class MiniMapComponent {
   public map = input.required<string>();
   public nades = input<Nade[]>([]);
+
   public selectedGroup = signal<NadeGroup | null>(null);
+  public selectedType = signal<string | null>(null);
   public hoveredNade = signal<Nade | null>(null);
+
   public nadeGroups = computed(() => {
     const groups: NadeGroup[] = [];
     const nades = this.nades();
+
     nades.forEach(nade => {
       if (!nade.endPosition) return;
+
       const existingGroup = groups.find(g =>
         Math.abs(g.position.x - nade.endPosition!.x) < 2 &&
-        Math.abs(g.position.y - nade.endPosition!.y) < 2 &&
-        g.type === nade.type
+        Math.abs(g.position.y - nade.endPosition!.y) < 2
       );
+
       if (existingGroup) {
         existingGroup.nades.push(nade);
+        if (!existingGroup.types.includes(nade.type)) {
+          existingGroup.types.push(nade.type);
+        }
       } else {
         groups.push({
           position: nade.endPosition,
-          type: nade.type,
+          types: [nade.type],
           nades: [nade]
         });
       }
     });
+
     return groups;
   });
+
   private hoverTimeout: any;
+
   selectGroup(group: NadeGroup) {
     this.selectedGroup.set(group);
     this.hoveredNade.set(null); // Reset hover when selecting a group
+
+    // Auto-select type if only one exists
+    if (group.types.length === 1) {
+      this.selectedType.set(group.types[0]);
+    } else {
+      this.selectedType.set(null); // Reset type selection for mixed groups
+    }
   }
+
+  selectType(type: string) {
+    this.selectedType.set(type);
+  }
+
+  deselectGroup() {
+    this.selectedGroup.set(null);
+    this.selectedType.set(null);
+    this.hoveredNade.set(null);
+  }
+
   onNadeHover(nade: Nade | null) {
     if (this.hoverTimeout) {
       clearTimeout(this.hoverTimeout);
       this.hoverTimeout = null;
     }
+
     if (nade) {
       this.hoveredNade.set(nade);
     } else {
@@ -67,6 +99,7 @@ export class MiniMapComponent {
       }, 100); // 100ms delay
     }
   }
+
   onTooltipHover(isHovering: boolean) {
     if (isHovering) {
       if (this.hoverTimeout) {
