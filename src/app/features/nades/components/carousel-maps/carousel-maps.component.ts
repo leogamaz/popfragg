@@ -14,6 +14,30 @@ export class CarouselMapsComponent {
   collapseDone = output<void>();
 
   selected = signal<string | null>(null);
+  
+  isCollapsed = signal<boolean>(false);
+  isExiting = signal<boolean>(false); 
+  isDeckExiting = signal<boolean>(false); 
+  isExpanding = signal<boolean>(false); 
+
+  maps = [
+    { id: 'de_mirage', name: 'Mirage' },
+    { id: 'de_nuke', name: 'Nuke' },
+    { id: 'de_overpass', name: 'Overpass' },
+    { id: 'de_inferno', name: 'Inferno' },
+    { id: 'de_dust2', name: 'Dust2' },
+    { id: 'de_train', name: 'Train' },
+    { id: 'de_cache', name: 'Cache' },
+    { id: 'de_vertigo', name: 'Vertigo' },
+    { id: 'de_anubis', name: 'Anubis' },
+    { id: 'de_ancient', name: 'Ancient' },
+  ];
+
+  onCardClick(mapId: string) {
+    if (this.isCollapsed()) {
+      this.expand();
+      return;
+    }
 
   collapsed = input<boolean>(false);
   currentMap = input<string | null>(null);
