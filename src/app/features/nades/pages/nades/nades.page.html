@@ -10,7 +10,8 @@
   <div class="ribbon"><span>MAP!</span></div>
 </div>
 <div *ngIf="mapVisible" class="flex items-center justify-center justify-evenly">
-  <app-menu-sidebar [map]="selectedMap!"></app-menu-sidebar>
-  <app-mini-map [map]="selectedMap!" [nades]="currentMapNades">
+  <app-menu-sidebar [map]="selectedMap!" [isAddingNade]="isAddingNade" (addNade)="onAddNade()"></app-menu-sidebar>
+  <app-mini-map [map]="selectedMap!" [nades]="currentMapNades" [isAddingNade]="isAddingNade"
+    (onNadeCreated)="onNadeCreated($event)" (onCancelAdd)="onCancelAdd()">
   </app-mini-map>
 </div>

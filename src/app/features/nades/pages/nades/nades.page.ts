@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -21,6 +22,7 @@ export class NadesPage implements OnInit {
   public selectedMap: string | null = null;
   public mapVisible: boolean = false;
   public isNavigating: boolean = false;
+  public isAddingNade: boolean = false;
 
   private ribbonFinished: boolean = false;
   private carouselFinished: boolean = false;
@@ -110,5 +112,23 @@ export class NadesPage implements OnInit {
     if (this.ribbonFinished && this.carouselFinished && this.selectedMap) {
       this.mapVisible = true;
     }
+  }
+
+  onAddNade() {
+    this.isAddingNade = true;
+  }
+
+  onNadeCreated(event: { title: string; type: string; description: string; position: { x: number; y: number } }) {
+    console.log('New Nade Created:', event);
+    // TODO: Call service to save nade
+    // const newNade: Nade = { ...event, map: this.selectedMap!, ... };
+    // this.nadesService.createNade(newNade).subscribe(...);
+
+    this.isAddingNade = false;
+    alert(`Nade Created!\nTitle: ${event.title}\nType: ${event.type}\nPosition: ${event.position.x.toFixed(2)}%, ${event.position.y.toFixed(2)}%`);
+  }
+
+  onCancelAdd() {
+    this.isAddingNade = false;
   }
 }

@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, input } from '@angular/core';
+import { fadeInAnimation } from '@app/shared/animations/fade-in.animation';
 import { IconComponent } from '@Shared/components/icon/IconComponent/IconComponent.component';
 
 @Component({
   selector: 'app-nade-marker',
   standalone: true,
   imports: [CommonModule, IconComponent],
+  animations: [fadeInAnimation],
   template: `
     @if (types().length === 1) {
       <ng-container *ngTemplateOutlet="iconTemplate; context: { $implicit: types()[0], size: 'w-4 h-4' }"></ng-container>
@@ -21,13 +23,13 @@ import { IconComponent } from '@Shared/components/icon/IconComponent/IconCompone
 
     <ng-template #iconTemplate let-type let-size="size">
       @if (type === 'smoke') {
-        <icon name="nades/smoke" [classList]="'w-4 h-4 text-gray-400'"></icon>
+        <icon @fadeIn name="nades/smoke" [classList]="'w-4 h-4 text-gray-400'"></icon>
       } @else if (type === 'flash') {
-        <icon name="nades/flash" [classList]="'w-4 h-4 text-yellow-400'"></icon>
+        <icon @fadeIn name="nades/flash" [classList]="'w-4 h-4 text-yellow-400'"></icon>
       } @else if (type === 'molotov') {
-        <icon name="nades/molotov" [classList]="'w-4 h-4 text-red-500'"></icon>
+        <icon @fadeIn name="nades/molotov" [classList]="'w-4 h-4 text-red-500'"></icon>
       } @else if (type === 'he') { 
-        <icon name="nades/he" [classList]="'w-4 h-4 text-green-500'"></icon>
+        <icon @fadeIn name="nades/he" [classList]="'w-4 h-4 text-green-500'"></icon>
       }
     </ng-template>
   `

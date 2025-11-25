@@ -1,9 +1,12 @@
-import { Component, input, signal, computed } from '@angular/core';
+import { Component, input, signal, computed, output } from '@angular/core';
 import { NgIf, NgClass } from '@angular/common';
 import { MiniMapAnimation } from '@app/shared/animations/mini-map.animation';
 import { Nade } from '@app/features/nades/models/nade.model';
 import { NadeMarkerComponent } from './components/nade-marker/nade-marker.component';
 import { NadeTooltipComponent } from './components/nade-tooltip/nade-tooltip.component';
+import { NadeCreationTooltipComponent } from './components/nade-creation-tooltip/nade-creation-tooltip.component';
+import { zoomInAnimation } from '@app/shared/animations/zoom-in.animation';
+import { fadeInAnimation } from '@app/shared/animations/fade-in.animation';
 
 export interface NadeGroup {
   position: { x: number; y: number };
@@ -16,8 +19,8 @@ export interface NadeGroup {
   standalone: true,
   templateUrl: './mini-map.component.html',
   styleUrl: './mini-map.component.css',
-  imports: [NadeMarkerComponent, NadeTooltipComponent, NgClass],
-  animations: [MiniMapAnimation],
+  imports: [NadeMarkerComponent, NadeTooltipComponent, NadeCreationTooltipComponent, NgClass],
+  animations: [MiniMapAnimation, zoomInAnimation, fadeInAnimation],
   host: {
     '[@miniMap]': '',
     'class': 'block'
@@ -26,10 +29,18 @@ export interface NadeGroup {
 export class MiniMapComponent {
   public map = input.required<string>();
   public nades = input<Nade[]>([]);
+  public isAddingNade = input<boolean>(false);
+
+  public onMapClick = output<{ x: number, y: number }>();
+  public onNadeCreated = output<{ title: string; type: string; description: string; position: { x: number; y: number } }>();
+  public onCancelAdd = output<void>();
 
   public selectedGroup = signal<NadeGroup | null>(null);
   public selectedType = signal<string | null>(null);
   public hoveredNade = signal<Nade | null>(null);
+  public tempPosition = signal<{ x: number; y: number } | null>(null);
+  public tooltipPosition = signal<'above' | 'below'>('above');
+  public hideAllNades = signal<boolean>(false);
 
   public nadeGroups = computed(() => {
     const groups: NadeGroup[] = [];
@@ -109,5 +120,51 @@ export class MiniMapComponent {
     } else {
       this.onNadeHover(null);
     }
+  }
+
+  handleMapClick(event: MouseEvent) {
+    if (!this.isAddingNade()) return;
+    this.hideAllNades.set(true);
+
+    const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+    // Calculate preferred position
+    const tooltipHeight = 420; // Height of the tooltip + margin
+    const spaceAbove = event.clientY;
+    const spaceBelow = window.innerHeight - event.clientY;
+
+    // Prefer above if it fits
+    if (spaceAbove > tooltipHeight) {
+      this.tooltipPosition.set('above');
+    }
+    // If not, check if it fits below
+    else if (spaceBelow > tooltipHeight) {
+      this.tooltipPosition.set('below');
+    }
+    // If neither fits well, pick the one with more space
+    else {
+      this.tooltipPosition.set(spaceAbove > spaceBelow ? 'above' : 'below');
+    }
+
+    this.tempPosition.set({ x, y });
+    this.onMapClick.emit({ x, y });
+    this.hideAllNades.set(false);
+  }
+
+  saveNewNade(data: { title: string; type: string; description: string }) {
+    if (this.tempPosition()) {
+      this.onNadeCreated.emit({
+        ...data,
+        position: this.tempPosition()!
+      });
+      this.tempPosition.set(null);
+    }
+  }
+
+  cancelNewNade() {
+    this.tempPosition.set(null);
+    this.onCancelAdd.emit();
   }
 }

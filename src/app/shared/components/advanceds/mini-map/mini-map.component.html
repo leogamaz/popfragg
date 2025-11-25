@@ -1,13 +1,13 @@
 <div class="relative mt-(--map-margin) w-fit" (click)="deselectGroup()">
 
   <!-- Map Image Container (with overflow hidden for rounded corners) -->
-  <div class="relative overflow-hidden rounded-lg w-fit">
+  <div class="relative overflow-hidden rounded-lg w-fit" (click)="handleMapClick($event)">
     <img [src]="'assets/images/mini-maps/' + map() + '.png'" class="block max-h-[85vh] w-auto"
-      [alt]="'Mini Mapa ' + map()" draggable="false" />
+      [alt]="'Mini Mapa ' + map()" draggable="false" [class.cursor-crosshair]="isAddingNade()" />
 
     <!-- Effect Groups (Landing Positions) -->
     @for (group of nadeGroups(); track group.position.x + '-' + group.position.y) {
-    @if (!selectedGroup() || selectedGroup() === group) {
+    @if ((!selectedGroup() || selectedGroup() === group) && !isAddingNade()) {
     <div
       class="absolute cursor-pointer transition-transform hover:scale-125 z-10 flex items-center justify-center rounded-full shadow-lg border border-[var(--color-border-lines)]"
       [ngClass]="group.types.length > 1 ? 'w-10 h-10 -ml-3 -mt-3' : 'w-8 h-8 -ml-3 -mt-3'"
@@ -21,7 +21,7 @@
     }
 
     <!-- Type Selector for Mixed Groups -->
-    @if (selectedGroup() === group && group.types.length > 1 && !selectedType()) {
+    @if (selectedGroup() === group && group.types.length > 1 && !selectedType() && !isAddingNade()) {
     <div
       class="absolute z-20 flex gap-2 p-2 rounded-lg bg-[var(--color-main-bg)] border border-[var(--color-border-lines)] shadow-xl -translate-x-1/2"
       [style.left.%]="group.position.x" [style.top.%]="group.position.y + 5">
@@ -38,6 +38,7 @@
 
     <!-- Execution Markers (Start Positions) for Selected Group -->
     @if (selectedGroup(); as group) {
+    @if (!isAddingNade()) {
     @for (nade of group.nades; track nade.title) {
     @if (nade.startPosition && (selectedType() === nade.type)) {
     <!-- Line connecting start and end -->
@@ -56,12 +57,31 @@
     }
     }
     }
+    }
+
+    <!-- Temporary Marker for New Nade -->
+    @if (tempPosition(); as pos) {
+    <div
+      class="absolute w-8 h-8 -ml-4 -mt-4 bg-[var(--color-neon)] rounded-full border-2 border-white shadow-lg z-30 animate-pulse"
+      [style.left.%]="pos.x" [style.top.%]="pos.y">
+    </div>
+    }
   </div>
 
   <!-- Tooltip (Outside overflow-hidden) -->
   @if (hoveredNade(); as nade) {
   <app-nade-tooltip [nade]="nade" (mouseenter)="onTooltipHover(true)"
     (mouseleave)="onTooltipHover(false)"></app-nade-tooltip>
+  }
+
+  <!-- Creation Tooltip -->
+  @if (tempPosition(); as pos) {
+  <div class="absolute z-50 transform -translate-x-1/2" [class.mt-4]="tooltipPosition() === 'below'"
+    [class.-translate-y-full]="tooltipPosition() === 'above'" [class.-mt-4]="tooltipPosition() === 'above'"
+    [style.left.%]="pos.x" [style.top.%]="pos.y">
+    <app-nade-creation-tooltip (save)="saveNewNade($event)" (cancel)="cancelNewNade()">
+    </app-nade-creation-tooltip>
+  </div>
   }
 
 </div>

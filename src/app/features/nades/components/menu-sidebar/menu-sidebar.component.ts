@@ -1,4 +1,4 @@
-import { Component, signal, input, computed } from '@angular/core';
+import { Component, signal, input, computed, output } from '@angular/core';
 import { BasicInputComponent } from '@app/shared/components/HTMLBasics/basicInput/basicInput.component';
 import { PrimaryButtonComponent } from '@app/shared/components/HTMLBasics/primaryButton/primaryButton.component';
 import { IconComponent } from '@app/shared/components/icon/IconComponent/IconComponent.component';
@@ -12,10 +12,17 @@ import { IconComponent } from '@app/shared/components/icon/IconComponent/IconCom
 })
 export class MenuSidebarComponent {
   map = input.required<string>();
+  isAddingNade = input<boolean>(false);
+  addNade = output<void>();
+
   formattedMapName = computed(() => {
     const currentMap = this.map();
     return this.mapDisplayNames[currentMap] || currentMap;
   });
+
+  onAddNade() {
+    this.addNade.emit();
+  }
 
   private readonly mapDisplayNames: Readonly<Record<string, string>> = {
     'de_mirage': 'Mirage',

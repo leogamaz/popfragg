@@ -1,0 +1,29 @@
+:host {
+    background-color: #1e1e1e;
+    height: 44px;
+    display: block;
+    width: 100%;
+    padding: 0 14px;
+    border: 2px solid #ffffff22;
+    border-radius: 8px;
+    color: #e0e0e0;
+    font-size: 16px;
+    font-weight: 500;
+    box-shadow: 2px 2px 4px #000000cc;
+    transition: all 0.2s ease-in-out;
+    outline: none;
+}
+
+:host:focus {
+    background-color: #1e1e1e;
+    border-color: var(--color-neon);
+    box-shadow: 0 0 10px var(--color-neon), 2px 2px 6px #000;
+    color: var(--color-neon);
+}
+
+:host:hover:not(:focus) {
+    border-color: var(--color-sub-neon);
+    color: var(--color-sub-neon);
+    box-shadow: 0 0 6px var(--color-sub-neon), 2px 2px 5px #000;
+    transition: all 0.2s ease-in-out;
+}
