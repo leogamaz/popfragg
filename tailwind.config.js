@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,js}"],
+  content: ["./src/**/*.{html,ts,js}"],
   theme: {
     extend: {
       colors: {
@@ -10,6 +10,7 @@ module.exports = {
         accent: "var(--color-accent)",
         text: "var(--color-text)",
         bgMain: "var(--color-main-bg)",
+        bgSecondary: "var(--color-secondary-bg)",
         borderLines: "var(--color-border-lines)",
         colorNeon: "var(--color-neon)",
         colorNeonShadow: "var(--color-neon-shadow)",

@@ -1,0 +1,132 @@
+/* === 1. Configuração do Host (O Botão) === */
+:host {
+    /* Variáveis originais do Uiverse */
+    --switch-width: 46px;
+    --switch-height: 24px;
+    --switch-bg: var(--color-border-lines);
+    --switch-checked-bg: var(--color-neon);
+    --switch-offset: calc((var(--switch-height) - var(--circle-diameter)) / 2);
+    --switch-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+
+    /* Circle */
+    --circle-diameter: 18px;
+    --circle-bg: #fff;
+    --circle-shadow: 1px 1px 2px rgba(146, 146, 146, 0.45);
+    --circle-checked-shadow: -1px 1px 2px rgba(163, 163, 163, 0.45);
+    --circle-transition: var(--switch-transition);
+
+    /* Icon */
+    --icon-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+    --icon-cross-color: var(--switch-bg);
+    --icon-cross-size: 6px;
+    --icon-checkmark-color: var(--switch-checked-bg);
+    --icon-checkmark-size: 10px;
+
+    /* Effect line */
+    --effect-width: calc(var(--circle-diameter) / 2);
+    --effect-height: calc(var(--effect-width) / 2 - 1px);
+    --effect-bg: var(--circle-bg);
+    --effect-border-radius: 1px;
+    --effect-transition: all .2s ease-in-out;
+
+    /* === RESET DO BUTTON NATIVO === */
+    display: inline-block;
+    /* ou inline-flex */
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    /* O foco será tratado visualmente se quiser depois */
+}
+
+/* === 2. Estrutura Interna (Slider, Circle, Icons) === */
+/* Removi o ".switch" desnecessário, pois o :host já é o container */
+
+.slider {
+    box-sizing: border-box;
+    width: var(--switch-width);
+    height: var(--switch-height);
+    background: var(--switch-bg);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: var(--switch-transition);
+}
+
+.circle {
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+    background: var(--circle-bg);
+    border-radius: inherit;
+    box-shadow: var(--circle-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--circle-transition);
+    z-index: 1;
+    position: absolute;
+    left: var(--switch-offset);
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    width: var(--effect-width);
+    height: var(--effect-height);
+    left: calc(var(--switch-offset) + (var(--effect-width) / 2));
+    background: var(--effect-bg);
+    border-radius: var(--effect-border-radius);
+    transition: var(--effect-transition);
+}
+
+/* Icons SVG */
+svg {
+    transition: var(--icon-transition);
+    position: absolute;
+    height: auto;
+}
+
+.checkmark {
+    width: var(--icon-checkmark-size);
+    color: var(--icon-checkmark-color);
+    transform: scale(0);
+}
+
+.cross {
+    width: var(--icon-cross-size);
+    color: var(--icon-cross-color);
+}
+
+/* === 3. Estados Ativos (Lógica do Angular) === */
+/* Substituímos "input:checked + .slider" por ":host([aria-pressed='true']) .slider" */
+
+:host([aria-pressed="true"]) .slider {
+    background: var(--switch-checked-bg);
+}
+
+:host([aria-pressed="true"]) .checkmark {
+    transform: scale(1);
+}
+
+:host([aria-pressed="true"]) .cross {
+    transform: scale(0);
+}
+
+:host([aria-pressed="true"]) .slider::before {
+    left: calc(100% - var(--effect-width) - (var(--effect-width) / 2) - var(--switch-offset));
+}
+
+:host([aria-pressed="true"]) .circle {
+    left: calc(100% - var(--circle-diameter) - var(--switch-offset));
+    box-shadow: var(--circle-checked-shadow);
+}
+
+/* === 4. Estado Desabilitado (Opcional, mas recomendado) === */
+:host([disabled]) {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+    /* Impede clique */
+}

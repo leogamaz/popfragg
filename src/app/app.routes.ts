@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'login',
-    title: 'Login', 
+    title: 'Login',
     data: {
       showHeader: false,
     },
@@ -43,14 +43,24 @@ export const routes: Routes = [
   },
   {
     path: 'nades',
-    title: 'Nades',
-    data: {
-      showHeader: true,
-    },
-    loadComponent: () =>
-      import('../app/features/nades/pages/nades/nades.page').then(
-        (m) => m.NadesPage
-      ),
+    children: [
+      {
+        path: '',
+        title: 'Nades',
+        loadComponent: () =>
+          import('../app/features/nades/pages/nades/nades.page').then(
+            (m) => m.NadesPage
+          ),
+      },
+      {
+        path: ':mapName',
+        title: 'Nades Detail',
+        loadComponent: () =>
+          import('../app/features/nades/pages/nades/nades.page').then(
+            (m) => m.NadesPage
+          ),
+      }
+    ]
   },
   {
     path: '',

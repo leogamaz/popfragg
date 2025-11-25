@@ -1,20 +1,17 @@
 <br>
-<carousel-maps 
-  (selectedMap)="onSelectMap($event)"
+<carousel-maps [collapsed]="!!selectedMap" [currentMap]="selectedMap" (selectedMap)="onSelectMap($event)"
   (collapseDone)="onCarouselCollapseDone()">
 </carousel-maps>
 
-<div 
-    @leftToRight
-    (@leftToRight.done)="onRibbonAnimationDone($event)"
-    *ngIf="!selectedMap" 
-    class="ribbon-container">
-    <div class="ribbon"><span>CHOOSE</span></div>
-    <div class="ribbon"><span>ONE</span></div>
-    <div class="ribbon"><span>MAP!</span></div>
+<div @leftToRight (@leftToRight.done)="onRibbonAnimationDone($event)" *ngIf="!selectedMap && !isNavigating"
+  class="ribbon-container">
+  <div class="ribbon"><span>CHOOSE</span></div>
+  <div class="ribbon"><span>ONE</span></div>
+  <div class="ribbon"><span>MAP!</span></div>
 </div>
-
-<app-mini-map 
-    *ngIf="mapVisible" 
-    [map]="selectedMap!">
-</app-mini-map>
+<div *ngIf="mapVisible" class="flex items-center justify-center justify-evenly">
+  <app-menu-sidebar [map]="selectedMap!" [isAddingNade]="isAddingNade" (addNade)="onAddNade()"></app-menu-sidebar>
+  <app-mini-map [map]="selectedMap!" [nades]="currentMapNades" [isAddingNade]="isAddingNade"
+    (onNadeCreated)="onNadeCreated($event)" (onCancelAdd)="onCancelAdd()">
+  </app-mini-map>
+</div>

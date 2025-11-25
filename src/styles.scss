@@ -11,6 +11,7 @@
   --color-accent: rgb(0, 255, 255);
   --color-text: #eeeeee;
   --color-main-bg: #141417;
+  --color-secondary-bg: #1c1c20;
   --color-border-lines: #303030;
   --color-neon: #00ffff;
   --color-neon-shadow: #00ff;
@@ -24,4 +25,17 @@ body {
 
 .form-responsive {
   @apply w-full sm:w-10/12 md:w-6/12 lg:w-4/12 xl:w-3/12 2xl:w-2/12;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
 }

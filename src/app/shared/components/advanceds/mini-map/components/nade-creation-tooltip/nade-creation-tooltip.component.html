@@ -1,0 +1,206 @@
+<div class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-bgMain p-4 rounded-lg shadow-xl border border-[var(--color-border-lines)] w-80 z-[1000] max-h-[400px] flex flex-col"
+    (click)="$event.stopPropagation()">
+
+    <h3 class="text-lg font-bold mb-4 text-[var(--color-text-primary)] shrink-0">Add New Nade</h3>
+
+    <div class="flex-1 overflow-y-auto flex flex-col gap-3 pr-2">
+        <div>
+            <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Title</label>
+            <input basic-input type="text" [(ngModel)]="title"
+                class="w-full bg-[var(--color-main-bg)] border border-[var(--color-border-lines)] rounded p-2 text-sm text-[var(--color-text-primary)] focus:border-[var(--color-neon)] outline-none"
+                placeholder="e.g. Jungle Smoke">
+        </div>
+
+        <span class="flex flex-row gap-2 justify-between">
+            <div class="w-1/2">
+                <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Type</label>
+                <select [(ngModel)]="type"
+                    class="w-full bg-[var(--color-main-bg)] border border-[var(--color-border-lines)] rounded p-2 text-sm text-[var(--color-text-primary)] focus:border-[var(--color-neon)] outline-none">
+                    <option value="smoke">Smoke</option>
+                    <option value="flash">Flash</option>
+                    <option value="molotov">Molotov</option>
+                    <option value="he">HE</option>
+                </select>
+            </div>
+            <div class="w-1/2">
+                <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Side</label>
+                <select [(ngModel)]="side"
+                    class="w-full bg-[var(--color-main-bg)] border border-[var(--color-border-lines)] rounded p-2 text-sm text-[var(--color-text-primary)] focus:border-[var(--color-neon)] outline-none">
+                    <option value="CT">CT</option>
+                    <option value="T">T</option>
+                </select>
+            </div>
+        </span>
+        <div class="flex flex-col gap-2">
+            <span class="flex flex-row gap-2 items-center">
+                <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Technique</label>
+                <button (click)="visibleTechiniqueInput.set(!visibleTechiniqueInput())"
+                    class="flex items-center leading-none justify-center self-center bg-bgSecondary rounded w-[28px] h-[28px] border-2 border-borderLines hover:border-colorNeon">
+                    {{ visibleTechiniqueInput() ? '-' : '+' }}
+                </button>
+            </span>
+            <span class="flex flex-row gap-2">
+                @if (visibleTechiniqueInput()) {
+                <select [(ngModel)]="techiniquesInput"
+                    class="w-full bg-[var(--color-main-bg)] border border-[var(--color-border-lines)] rounded p-2 text-sm text-[var(--color-text-primary)] focus:border-[var(--color-neon)] outline-none">
+                    @for (techinique of techiniqueCommands; track techinique) {
+                    <option [value]="techinique">{{ techinique }}</option>
+                    }
+                </select>
+                <button [@zoomIn]="zoomInParams" (click)="onConfirmAddNewTechnique()"
+                    class="p-2 flex items-center leading-none justify-center self-center bg-bgSecondary rounded-lg w-[45px] h-[45px] border-2 border-borderLines hover:border-colorNeon">
+                    OK
+                </button>
+                }
+            </span>
+        </div>
+        <div *ngIf="techniques().length > 0" class="flex flex-wrap items-center m-2 pl-2">
+
+            <div class="flex flex-wrap gap-2 items-center">
+                @for (technique of techniques(); track $index) {
+                <div class="relative w-fit">
+                    <p
+                        class="break-all text-xs text-gray-300 bg-[var(--color-border-lines)] py-1 pl-2 pr-2 mx-1 rounded">
+                        {{ technique }}
+                    </p>
+
+                    <icon name="close-circle"
+                        class="w-4 h-4 cursor-pointer absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+                        (click)="onRemoveTechnique(technique)">
+                    </icon>
+                </div>
+                }
+            </div>
+
+        </div>
+        <div>
+            <span class="flex gap-2 items-center mb-2">
+                <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Tags</label>
+                <button (click)="visibleTagInput.set(!visibleTagInput())"
+                    class="flex items-center leading-none justify-center self-center bg-bgSecondary rounded w-[28px] h-[28px] border-2 border-borderLines hover:border-colorNeon">
+                    {{ visibleTagInput() ? '-' : '+' }}
+                </button>
+            </span>
+            @if (visibleTagInput()) {
+            <span class="flex gap-2 items-center">
+                <input [@zoomIn]="zoomInParams" basic-input type="text" name="tags" id="" placeholder="Add a tag..."
+                    [(ngModel)]="tag">
+                <button [@zoomIn]="zoomInParams" (click)="onConfirmNewTag()"
+                    class="p-2 flex items-center leading-none justify-center self-center bg-bgSecondary rounded-lg w-[45px] h-[45px] border-2 border-borderLines hover:border-colorNeon">
+                    OK
+                </button>
+            </span>
+            }
+            <span class="flex flex-wrap gap-2 items-center m-2 pl-2">
+                @if (tags().length > 0) {
+                <span [@zoomIn]="zoomInParams" class="flex flex-wrap gap-2 items-center">
+                    @for (tag of tags(); track $index) {
+                    <div class="relative w-fit">
+                        <p
+                            class="break-all text-xs text-gray-300 bg-[var(--color-border-lines)] py-1 pl-2 pr-2 mx-1 rounded">
+                            {{ tag }}
+                        </p>
+
+                        <icon name="close-circle"
+                            class="w-4 h-4 cursor-pointer absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+                            (click)="onRemoveTag(tag)">
+                        </icon>
+                    </div>
+                    }
+                </span>
+
+                }
+            </span>
+        </div>
+        <div class="videoUrl">
+            <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Video URL</label>
+            <input basic-input type="text" [(ngModel)]="videoUrl"
+                class="w-full bg-[var(--color-main-bg)] border border-[var(--color-border-lines)] rounded p-2 text-sm text-[var(--color-text-primary)] focus:border-[var(--color-neon)] outline-none"
+                placeholder="e.g. https://www.youtube.com/watch?v=...">
+        </div>
+        <div class="flex flex-col">
+            <div class="nade-visibility flex flex-row gap-2 items-center">
+                <span class="flex flex-row gap-2 items-center">
+                    <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Private</label>
+                    <button toggle-button [(checked)]="isPrivate"></button>
+                </span>
+                @if (isPrivate()) {
+                <span [@zoomIn]="zoomInParams" class="flex flex-row gap-2 items-center">
+                    <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Add users</label>
+                    <button (click)="visibleAddUsersInput.set(!visibleAddUsersInput())"
+                        class="flex items-center leading-none justify-center self-center bg-bgSecondary rounded w-[28px] h-[28px] border-2 border-borderLines hover:border-colorNeon">
+                        {{ visibleAddUsersInput() ? '-' : '+' }}
+                    </button>
+                </span>
+                }
+            </div>
+        </div>
+
+        <div *ngIf="visibleAddUsersInput() && isPrivate()" class="flex gap-2 items-center">
+            <input [@zoomIn]="zoomInParams" basic-input type="text" name="users" id="" placeholder="Add a user..."
+                [(ngModel)]="user">
+            <button [@zoomIn]="zoomInParams" (click)="onConfirmAddNewUser()"
+                class="p-2 flex items-center leading-none justify-center self-center bg-bgSecondary rounded-lg w-[45px] h-[45px] border-2 border-borderLines hover:border-colorNeon">
+                OK
+            </button>
+        </div>
+        <div *ngIf="users().length > 0 && isPrivate()" class="flex flex-wrap items-center m-2 pl-2">
+
+            <div class="flex flex-wrap gap-2 items-center">
+                @for (user of users(); track $index) {
+                <div class="relative w-fit">
+                    <p
+                        class="break-all text-xs text-gray-300 bg-[var(--color-border-lines)] py-1 pl-2 pr-2 mx-1 rounded">
+                        {{ user }}
+                    </p>
+
+                    <icon name="close-circle"
+                        class="w-4 h-4 cursor-pointer absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+                        (click)="onRemoveUser(user)">
+                    </icon>
+                </div>
+                }
+            </div>
+
+        </div>
+
+        <div class="accuracyLevel flex flex-row gap-2 items-center">
+            <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Accuracy Level</label>
+            <button toggle-button [(checked)]="hasAccuracyLevel" class="m-2">
+                +
+            </button>
+            @if (hasAccuracyLevel()) {
+            <select [@zoomIn]="zoomInParams" [(ngModel)]="accuracyLevel"
+                class="w-full bg-[var(--color-main-bg)] border border-[var(--color-border-lines)] rounded p-2 text-sm text-[var(--color-text-primary)] focus:border-[var(--color-neon)] outline-none">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+            }
+        </div>
+        <div>
+            <span class="flex gap-2 items-center">
+                <label class="block text-sm mb-1 text-[var(--color-text-secondary)]">Description</label>
+                <button toggle-button [(checked)]="hasDescription" class="m-2">
+                    +
+                </button>
+            </span>
+            @if (hasDescription()) {
+            <textarea basic-text-area [@zoomIn]="zoomInParams" [(ngModel)]="description" rows="3"
+                style="height:70px; overflow: hidden;"
+                placeholder="Everything you need to know about this nade..."></textarea>
+            }
+        </div>
+    </div>
+
+    <div class="flex gap-2 mt-4 pt-2 border-t border-[var(--color-border-lines)] shrink-0">
+        <button (click)="onSave()"
+            class="flex-1 bg-[var(--color-neon)] text-black font-bold py-2 rounded hover:opacity-90 transition-opacity">
+            Save
+        </button>
+        <button (click)="onCancel()"
+            class="flex-1 bg-transparent border border-[var(--color-border-lines)] text-[var(--color-text-primary)] py-2 rounded hover:bg-[var(--color-border-lines)] transition-colors">
+            Cancel
+        </button>
+    </div>
+</div>
